@@ -83,7 +83,7 @@ make.vt <- function(
   #makes the zurn code
   dgn$zurn<-paste((zurn.seed*100)+dgn$loc.number,formatC(dgn$trial.number, width=2, flag="0"), dgn$replication, str_pad(dgn$plot, 4, pad = 0), sep="")
   dgn <- within(dgn, zurn[replication == "FILLER"] <- NA) # if replication is FILLER than make zurn code NA
-  dgn <- within(dgn, replication[replication == "FILLER"] <- NA) # if replication is FILLER than make it NA
+  #dgn <- within(dgn, replication[replication == "FILLER"] <- NA) # if replication is FILLER than make it NA
   #
   # making a plating order 
   junk<-dgn
