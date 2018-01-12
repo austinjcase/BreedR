@@ -1,6 +1,6 @@
 #' make.iyt function
 #' 
-#' This function allows you to make vt trials
+#' This function allows you to make ity/AYT  trials  which differ from VT because they have checks
 #' @description This is a wraper for FldTrial's design.rcbd fucntion, sepcificly for maing a standard IYT/AYT type trial, 
 #' in a RCB design where within experiemnt fills are done with Checks , 
 #' one set of checks per block
