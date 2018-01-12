@@ -72,7 +72,9 @@ make.vt <- function(
   plot.lay<-as.data.frame(plot.lay)
   rep.lay<-rcbd$rep.layout
   rep.lay<-as.data.frame(rep.lay)
-  map<-cbind(loc=rep(enviro, nrow(plot.lay)), plot.lay, rep.lay)
+  check.lay<-rcbd$check.layout
+  check.lay<-as.data.frame(check.lay)
+  map<-cbind(loc=rep(enviro, nrow(plot.lay)), plot.lay, rep.lay,check.lay )
   #
   #making the data file 
   dgn<-rcbd$rcbd.dg
@@ -99,11 +101,12 @@ make.vt <- function(
   map<-map2
   map2<-map
   map2[] <- lapply(map2, as.character)
-  map2[nrow(map2) + 1,] = c(
+    map2[nrow(map2) + 1,] = c(
     NA,NA,rep("plot_order", max(number_cols)),
     NA, rep("rep_order", max(number_cols)),
+    NA, rep("check_order", max(number_cols)),
     NA, rep("plant_order", max(number_cols)))
-  map<-map2
+    map<-map2
   rm(map2)
   #######################################################
   
