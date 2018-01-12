@@ -65,7 +65,7 @@ make.vt <- function(
   i<-which(location.list ==loc.to.use) # get postion of the name of the locatoin 
   enviro<-location.list[i] # geting the enviroemnt to use
   rcbd <- design.rcbd(enviro = location.list[i], exp.name = experiment, nChkReps =0,
-                      nBlks = 3, entries = entries, nChks = 0, nFieldRows = bed.list[i], 
+                      nBlks = number.blocks, entries = entries, nChks = 0, nFieldRows = bed.list[i], 
                       plot.start = plot.start, fillWithEntry = TRUE, fillWithChk = FALSE)
   # makin the map file
   plot.lay<-rcbd$plot.layout

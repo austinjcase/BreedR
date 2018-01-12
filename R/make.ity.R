@@ -61,15 +61,17 @@ make.iyt <- function(
   bed.list<-loc.ids$beds
   i<-which(location.list ==loc.to.use) # get postion of the name of the locatoin 
   enviro<-location.list[i] # geting the enviroemnt to use
-  rcbd <- design.rcbd(enviro = location.list[i], exp.name = experiment, chks = checks, nChkReps =1,
-                      nBlks = 3, entries = entries, nChks = 0, nFieldRows = bed.list[i], 
+  rcbd <- design.rcbd(enviro = location.list[i], exp.name = experiment, chks = checks, nChkReps =2,
+                      nBlks = number.blocks, entries = entries, nChks = 0, nFieldRows = bed.list[i], 
                       plot.start = plot.start, fillWithEntry = FALSE, fillWithChk = TRUE)
   # makin the map file
   plot.lay<-rcbd$plot.layout
   plot.lay<-as.data.frame(plot.lay)
   rep.lay<-rcbd$rep.layout
   rep.lay<-as.data.frame(rep.lay)
-  map<-cbind(loc=rep(enviro, nrow(plot.lay)), plot.lay, rep.lay)
+  check.lay<-rcbd$check.layout
+  check.lay<-as.data.frame(check.lay)
+  map<-cbind(loc=rep(enviro, nrow(plot.lay)), plot.lay, rep.lay,check.lay )
   #
   #making the data file 
   dgn<-rcbd$rcbd.dg
@@ -99,6 +101,7 @@ make.iyt <- function(
   map2[nrow(map2) + 1,] = c(
     NA,NA,rep("plot_order", max(number_cols)),
     NA, rep("rep_order", max(number_cols)),
+    NA, rep("check_order", max(number_cols)),
     NA, rep("plant_order", max(number_cols)))
   map<-map2
   rm(map2)
