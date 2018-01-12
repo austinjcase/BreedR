@@ -38,22 +38,10 @@ adds functions to allow export of planting order and maps,
 it will also ad ZURN codes, and strips out uneeded extra columns, will also export a filed book type sheet for data collection.
 }
 \details{
-This function allows you to make vt trials
+This function allows you to make ity/AYT  trials  which differ from VT because they have checks
 }
 \examples{
-setwd("/Volumes/CFANS/AGRO/Oat_Lab/R CODES for planting/2018/")# set working directory 
 
-x<- make.vt(loc.to.use="mos",
-           loc.ids="loc ids.csv",
-           trial.ids="trial ids.csv",
-           experiment="VT",
-           entries="18 VT 9jan18.csv",
-           plot.start=1000,
-           number.blocks=3,
-           year=2018, 
-           zurn.seed=5)
 
-maps<-x$map.file
-files<-x$data.book
 
 }
