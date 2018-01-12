@@ -39,6 +39,12 @@ make.vt <- function(
   number.blocks=3, 
   year=NULL){
   
+  #pacakges needed
+  library(BreedR)
+  library(plyr)
+  library(stringr)
+  #
+  
   # from user inputs
   loc.to.use<-loc.to.use
   loc.ids<-read.csv(loc.ids)
