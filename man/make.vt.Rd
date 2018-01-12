@@ -6,7 +6,7 @@
 \usage{
 make.vt(loc.to.use = NULL, loc.ids = NULL, trial.ids = NULL,
   experiment = NULL, entries = NULL, plot.start = 1000,
-  number.blocks = 3, year = NULL)
+  number.blocks = 3, year = NULL, zurn.seed = NULL)
 }
 \arguments{
 \item{loc.to.use}{REQUIRED is the name of the location useing hte code naem ie "crk"}
@@ -24,6 +24,8 @@ make.vt(loc.to.use = NULL, loc.ids = NULL, trial.ids = NULL,
 \item{number.blocks}{OPTIONALis the number of blocks to use i.e. 0 or 1 or 2 or 3. Defalut is 3}
 
 \item{year}{REQUIRED is the year of the planting i.e. 2018}
+
+\item{zurn.seed}{REQUIRED is the zurn code for the crop i.e. 5 for oat or 3 for barley}
 }
 \description{
 This is a wraper for FldTrial's design.rcbd fucntion, sepcificly for maing a standard VT type trial, in a RCB design where witin experiemnt fills are done with entries, Which may induce duplicaes witin blocks but makes for better planting files, adds functions to allow export of planting order and maps, it will also ad ZURN codes, and strips out uneeded extra columns, will also export a filed book type  sheet for data collection.
@@ -41,7 +43,8 @@ x<- make.vt(loc.to.use="mos",
            entries="18 VT 9jan18.csv",
            plot.start=1000,
            number.blocks=3,
-           year=2018)
+           year=2018, 
+           zurn.seed=5)
 
 maps<-x$map.file
 files<-x$data.book

@@ -10,6 +10,7 @@
 #' @param  plot.start OPTIONAL the number of the first plot i.e. 0 or 1 or 1000 which ever, Default is 1
 #' @param  number.blocks OPTIONALis the number of blocks to use i.e. 0 or 1 or 2 or 3. Defalut is 3
 #' @param  year REQUIRED is the year of the planting i.e. 2018
+#' @param zurn.seed REQUIRED is the zurn code for the crop i.e. 5 for oat or 3 for barley 
 #' 
 #' @examples 
 #' setwd("/Volumes/CFANS/AGRO/Oat_Lab/R CODES for planting/2018/")# set working directory 
@@ -21,7 +22,8 @@
 #'            entries="18 VT 9jan18.csv",
 #'            plot.start=1000,
 #'            number.blocks=3,
-#'            year=2018)
+#'            year=2018, 
+#'            zurn.seed=5)
 #'
 #' maps<-x$map.file
 #' files<-x$data.book
@@ -37,7 +39,8 @@ make.vt <- function(
   entries= NULL, 
   plot.start=1000, 
   number.blocks=3, 
-  year=NULL){
+  year=NULL, 
+  zurn.seed=NULL){
   
   #pacakges needed
   library(BreedR)
@@ -54,6 +57,7 @@ make.vt <- function(
   plot.start<-plot.start
   number.blocks<-number.blocks
   year<-year
+  zurn.seed<-zurn.seed
   #
   # deduced from user inputs
   location.list<-loc.ids$environment # will make a file for each locatio i nthe loc.ids file 
@@ -77,7 +81,7 @@ make.vt <- function(
   dgn$experiment<-rep(experiment, nrow(dgn))
   dgn<-join(dgn, trial.ids, by= "experiment")
   #makes the zurn code
-  dgn$zurn<-paste(500+dgn$loc.number,formatC(dgn$trial.number, width=2, flag="0"), dgn$replication, str_pad(dgn$plot, 4, pad = 0), sep="")
+  dgn$zurn<-paste((zurn.seed*100)+dgn$loc.number,formatC(dgn$trial.number, width=2, flag="0"), dgn$replication, str_pad(dgn$plot, 4, pad = 0), sep="")
   dgn <- within(dgn, zurn[replication == "FILLER"] <- NA) # if replication is FILLER than make zurn code NA
   dgn <- within(dgn, replication[replication == "FILLER"] <- NA) # if replication is FILLER than make it NA
   #
