@@ -4,7 +4,7 @@ Title: An R package for managing a breeding program
 Version: 0.2.1
 Author: Austin Case
 Maintainer: The package maintainer <case0197@umn.edu>
-Description: This package allows access to the umn oat and barley breeding files. At some              pint will include the FldTrial functions.
+Description: This package allows access to the umn oat and barley breeding files. Props to Tyler Tiede for FldTrl functions
 License: NONE
 Encoding: UTF-8
 LazyData: true
