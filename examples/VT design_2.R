@@ -26,7 +26,7 @@ write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/
 
 
 #VTs
-######################################################
+##############################
 ##############################
 # DESIGN NOTES#
 ## RCBD (Randomized Complete Block Design)
@@ -35,8 +35,7 @@ write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/
 # three blocks per location
 # fills with entry is true meaning may be duplicate entery in a block
 
-# help function
-?make.vt
+?make.vt # help function
 
 x<- make.vt(loc.to.use="mos", # this is the location use the codes
                       loc.ids="locs.csv", # ths is th csv file with loc id's
@@ -57,7 +56,6 @@ files
 write.csv(maps, paste(files$trial[1],"map.csv", sep = "_"), row.names=F)
 write.csv(files, paste(files$trial[1],"data_book.csv", sep = "_"), row.names=F)
 
-
 ## IYT's
 ######################################################
 ##############################
@@ -69,6 +67,7 @@ write.csv(files, paste(files$trial[1],"data_book.csv", sep = "_"), row.names=F)
 # fill with chekcs
 
 ?make.iyt() #help files
+
 y<-make.iyt(loc.to.use="mos", # this is the location use the codes
           loc.ids="locs.csv", # ths is th csv file with loc id's
           trial.ids="trial.csv", # this is the csv file with the trail ids
