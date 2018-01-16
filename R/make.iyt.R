@@ -94,7 +94,10 @@ make.iyt <- function(
   map<-map[-nrow(map),]
   map2<-cbind(map, junk2)
   number_cols<- 1:length(unique(dgn$column))
-  colnames(map2)<-c("loc","row",number_cols, "row", number_cols,"row", number_cols )
+  colnames(map2)<-c("loc","row",paste("column",number_cols,  sep="_"), "row", paste("column",number_cols,  sep="_"),"row", 
+                    paste("column",number_cols,  sep="_"), "row", paste("column",number_cols,  sep="_") )
+  
+  #colnames(map2)<-c("loc","row",number_cols, "row", number_cols,"row", number_cols )
   map<-map2
   map2<-map
   map2[] <- lapply(map2, as.character)
