@@ -12,13 +12,13 @@ data.pull(expt = NULL, field = NULL, qual = NULL, trial = NULL,
 
 \item{field}{REQUIRED \code{data.frame} of field data in the OAT DATA BASE}
 
+\item{qual}{REQUIRED \code{data.frame} of post harvest data in the OAT DATA BASE}
+
+\item{trial}{OPTIONAL\code{character string} a type of trial as described in the OAT DATA BASE}
+
 \item{years}{OPTIONAL\code{character string} years to select data from}
 
 \item{lines}{OPTIONAL\code{character string} lines to be selected}
-
-\item{post}{REQUIRED \code{data.frame} of post harvest data in the OAT DATA BASE}
-
-\item{trail}{OPTIONAL\code{character string} a type of trial as described in the OAT DATA BASE}
 }
 \description{
 This function allows you to pull data from the oat data base or similar

@@ -3,8 +3,8 @@
 #' This function allows you to pull data from the oat data base or similar
 #' @param expt REQUIRED \code{data.frame} of experient descirptions in the OAT DATA BASE
 #' @param field REQUIRED \code{data.frame} of field data in the OAT DATA BASE
-#' @param post REQUIRED \code{data.frame} of post harvest data in the OAT DATA BASE
-#' @param trail OPTIONAL\code{character string} a type of trial as described in the OAT DATA BASE
+#' @param qual REQUIRED \code{data.frame} of post harvest data in the OAT DATA BASE
+#' @param trial OPTIONAL\code{character string} a type of trial as described in the OAT DATA BASE
 #' @param years OPTIONAL\code{character string} years to select data from
 #' @param lines OPTIONAL\code{character string} lines to be selected
 #' @keywords data.pull
