@@ -8,7 +8,7 @@
 
 # required pacakges
 library(devtools) 
-#install_github("austinjcase/BreedR")
+install_github("austinjcase/BreedR")
 library(BreedR)
 library(plyr)
 library(stringr)
