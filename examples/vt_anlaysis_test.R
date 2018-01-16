@@ -19,6 +19,7 @@ test_out<-vt_analysis(exp_data = exp_odb, fld_data = fld_odb, qual_data = qual_o
             trait_sel = "yield",
             exclude = c("vt_2017_stp", "vt_2016_stp", "vt_2017_kim", "vt_2015_was" ,"vt_2017_roc" ),
             expt_obj = "agro", cut_offs = c(50, 300))
+rm(test_out)
 
 #without cut offs
 test_out<-vt_analysis(exp_data = exp_odb, fld_data = fld_odb, qual_data = qual_odb,
@@ -26,7 +27,7 @@ test_out<-vt_analysis(exp_data = exp_odb, fld_data = fld_odb, qual_data = qual_o
                         trait_sel = "yield",
                         exclude = c("vt_2017_stp", "vt_2016_stp", "vt_2017_kim", "vt_2015_was" ,"vt_2017_roc" ),
                         expt_obj = "agro", cut_offs = NULL)
-
+rm(test_out)
 
 #test weight
 test_out<-vt_analysis(exp_data = exp_odb, fld_data = fld_odb, qual_data = qual_odb,
@@ -34,10 +35,20 @@ test_out<-vt_analysis(exp_data = exp_odb, fld_data = fld_odb, qual_data = qual_o
                       trait_sel = "test_weight",
                       exclude = c("vt_2017_stp", "vt_2016_stp", "vt_2017_kim", "vt_2015_was" ,"vt_2017_roc" ),
                       expt_obj = "agro", cut_offs = NULL)
+rm(test_out)
 
-head(test_out)
 
+# just one year
+test_out<-vt_analysis(exp_data = exp_odb, fld_data = fld_odb, qual_data = qual_odb,
+                      trial_type = "vt", yr1 = 2017,
+                      trait_sel = "yield",
+                      expt_obj = "agro", cut_offs = c(50, 300))
+rm(test_out)
 
-junk<-reshape(test_out, idvar = "line", timevar = "trial_name", direction = "wide")
-colnames(junk)
+# just two years
+test_out<-vt_analysis(exp_data = exp_odb, fld_data = fld_odb, qual_data = qual_odb,
+                      trial_type = "vt", yr1 = 2017, yr2=2016,
+                      trait_sel = "yield",
+                      expt_obj = "agro", cut_offs = c(50, 300))
+rm(test_out)
 

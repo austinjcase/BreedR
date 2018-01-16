@@ -5,7 +5,7 @@
 #' @param fld_data REQUIRED \code{data.frame}  field phenotype file from OAT DATA BASE
 #' @param qual_data REQUIRED \code{data.frame} quality phenotype file from OAT DATA BASE
 #' @param tyial_type REQUIRED \code{vector} type of trial as described by the OAT DATA BASE  example "vt"
-#' @param yr1 OPTIONAL \code{vector} first year of data to use example (2017) at least one value is required for yr1 or yr2
+#' @param yr1 REQUIRED \code{vector} first year of data to use example (2017) at least one value is required for yr1 or yr2
 #' @param yr2 OPTIONAL \code{vector} first year of data to use example (2016) at least one value is required for yr1 or yr2
 #' @param yr3 OPTIONAL \code{vector} first year of data to use example (2015)
 #' @param trait_sel REQUIRED \code{vector} exact name of trait to use in anlysis example "yield"
@@ -206,6 +206,7 @@ vt_analysis <- function (exp_data=NULL,fld_data=NUL, qual_data=NULL,
   rm(sel, data, data3, out, anova, number_enviro, number_reps, lsd_05, lsd_10, means, trial_mean, final) # house keeping
   #####
 
+  
   # two yr average
   # 2yr means could be yr1 and yr2 which is regular
   # so yr2  = yr1 and yr2 so "2017-2016"
@@ -214,7 +215,8 @@ vt_analysis <- function (exp_data=NULL,fld_data=NUL, qual_data=NULL,
 
   # yr2 regular single loc
   #####
-
+  
+  if (is.null (yr1) | is.null (yr2)){ result_yr2<-NULL} else { # NULL IF yr1 is missing
   years<-c(yr1, yr2) # years we are looking at
   vt3<-subset(vt2, year %in% years) # subset by year
   sel<-aggregate(trait ~line +rep+trial_name , data=vt3, FUN=mean, na.rm=F) # get averages witin a locatsion
@@ -224,10 +226,8 @@ vt_analysis <- function (exp_data=NULL,fld_data=NUL, qual_data=NULL,
   data2<-droplevels(data2) # drup unused
   data2$location<-gsub("vt_.*_", "",data2$trial_name) # add to get just locations data
   locs<-unique(data2$location)  # gets list of locatiosn with boty yr1 and yr2 data
-
-    # loop to get 2yrs avers for locatiosn
+  # loop to get 2yrs avers for locatiosn
   boot<-NULL
-
   for (i in 1:length(locs)) {
     loc<-locs[i]
     data2b<-subset(data2, location %in% loc) # filter by location
@@ -252,14 +252,15 @@ vt_analysis <- function (exp_data=NULL,fld_data=NUL, qual_data=NULL,
     final<-NULL
   }
   result_yr2<-boot
-  if (is.null (yr1) | is.null (yr2)){ result_yr2<-NULL} # NULL IF yr1 or yr2 is missing
+  #if (is.null (yr1) | is.null (yr2)){ result_yr2<-NULL} # NULL IF yr1 or yr2 is missing
   rm(vt3, years,sel,lines2yr,data2, locs ,loc,
      data2b, data3,out,anova,number_enviro, number_locs, number_reps,lsd_05, lsd_10, means,trial_mean, boot) # house keeping
  # return(result_yr2)
+  }
   print("end 2yr reg")
 
   #####
-
+  if (is.null (yr1) | is.null (yr2)){ result_yr2_state<-NULL} else { # NULL IF yr1 is missing
   # yr2 regular state wide average
   #####
   vt3<-subset(vt2, year %in% c(yr1, yr2)) # subset by year
@@ -286,15 +287,16 @@ vt_analysis <- function (exp_data=NULL,fld_data=NUL, qual_data=NULL,
   final$trial_name<- rep(paste(c("state_wide",years), collapse = '_'), nrow(final)) # add trait name which is state wide
   result_yr2_state<-final
   #return(result_yr2_state)
-  if (is.null (yr1) | is.null (yr2)){ result_yr2_state<-NULL} # NULL IF yr1 is missing
+  #if (is.null (yr1) | is.null (yr2)){ result_yr2_state<-NULL} # NULL IF yr1 is missing
   rm(sel, data3, out, anova, number_enviro, number_reps,years, lsd_05, lsd_10, means, trial_mean, final) # house keeping
+  }
   print("line 283")
 
   #####
 
   # yr2b  single loc
   #  yr2b = yr1 and yr3 so "2017-2015"
-  #####
+  if (is.null (yr1) | is.null (yr3)){ result_yr2b<-NULL} else { # NULL IF yr1 is missing
   years<-c(yr1, yr3) # years we are looking at
   vt3<-subset(vt2, year %in% years) # subset by year
   sel<-aggregate(trait ~line +rep+trial_name , data=vt3, FUN=mean, na.rm=F) # get averages witin a locatsion
@@ -305,7 +307,6 @@ vt_analysis <- function (exp_data=NULL,fld_data=NUL, qual_data=NULL,
   locs<-unique(data2$location)  # gets list of locatiosn with boty yr1 and yr3 data
   # loop to get 2yrs avers for locatiosn
   boot<-NULL
-
   for (i in 1:length(locs)) {
     loc<-locs[i]
     data2b<-subset(data2, location %in% loc) # filter by location
@@ -332,9 +333,10 @@ vt_analysis <- function (exp_data=NULL,fld_data=NUL, qual_data=NULL,
     rm(final)
   }
   result_yr2b<-boot
-  if (is.null (yr1)|is.null (yr3) ){ result_yr2b<-NULL} # NULL IF yr1  or yr3 is missing
+  #if (is.null (yr1)|is.null (yr3) ){ result_yr2b<-NULL} # NULL IF yr1  or yr3 is missing
   rm(vt3, years,sel,lines2yr,data2, locs ,loc,
      data2b, data3,out,anova,number_enviro,  number_reps,lsd_05, lsd_10, means,trial_mean, boot) # house keeping
+  }
   print("line 330")
 
    #return(result_yr2b)
@@ -343,6 +345,8 @@ vt_analysis <- function (exp_data=NULL,fld_data=NUL, qual_data=NULL,
   # yr2b  state wide average
   #  yr2b = yr1 and yr3 so "2017-2015"
   #####
+  if (is.null (yr1) | is.null (yr3)){ result_yr2_b_state<-NULL} else { # NULL IF yr1 is missing
+  
   years<-c(yr1, yr3) # years we are looking at
   vt3<-subset(vt2, year %in% years) # subset by year
   sel<-aggregate(trait ~line +rep+trial_name , data=vt3, FUN=mean, na.rm=F) # get averages witin a locatsion
@@ -361,13 +365,16 @@ vt_analysis <- function (exp_data=NULL,fld_data=NUL, qual_data=NULL,
   final<-rbind(means, data.frame(line=c("lsd_05", "lsd_10", "mean"), trait=c(lsd_05, lsd_10, trial_mean) )) # bind up
   final$trial_name<- rep(paste(c("state_wide",years), collapse = '_'), nrow(final)) # add trait name which is state wide
   result_yr2_b_state<-final
-  if (is.null (yr1)|is.null (yr3) ){ result_yr2_b_state<-NULL} # NULL IF yr1 or yr3 is missing
+  #if (is.null (yr1)|is.null (yr3) ){ result_yr2_b_state<-NULL} # NULL IF yr1 or yr3 is missing
   rm(sel, data3, out, anova, number_enviro, number_reps,years, lsd_05, lsd_10, means, trial_mean, final) # house keeping
+  }
   #####
 
   # yr2c single loc
   #  yr2c = yr2 and yr3 so "2016-2015"
   #####
+  if (is.null (yr2) | is.null (yr3)){ result_yr2c<-NULL} else {
+    
   years<-c(yr2, yr3) # years we are looking at
   vt3<-subset(vt2, year %in% years) # subset by year
   sel<-aggregate(trait ~line +rep+trial_name , data=vt3, FUN=mean, na.rm=F) # get averages witin a locatsion
@@ -404,15 +411,18 @@ vt_analysis <- function (exp_data=NULL,fld_data=NUL, qual_data=NULL,
     rm(final)
   }
   result_yr2c<-boot
-  if (is.null (yr2) | is.null(yr3)){ result_yr2c<-NULL} # NULL IF yr2 or yr 3is missing
+  #if (is.null (yr2) | is.null(yr3)){ result_yr2c<-NULL} # NULL IF yr2 or yr 3is missing
   rm(vt3, years,sel,lines2yr,data2, locs ,loc,
      data2b, data3,out,anova,number_enviro,  number_reps,lsd_05, lsd_10, means,trial_mean, boot) # house keeping
+  }
   print("line 402")
    #####
 
   # yr2c  state wide average
   #  yr2c = yr2 and yr3 so "2016-2015"
   #####
+  if (is.null (yr2) | is.null (yr3)){ result_yr2_c_state<-NULL} else {
+  
   years<-c(yr2, yr3) # years we are looking at
   vt3<-subset(vt2, year %in% years) # subset by year
   sel<-aggregate(trait ~line +rep+trial_name , data=vt3, FUN=mean, na.rm=F) # get averages witin a locatsion
@@ -431,8 +441,9 @@ vt_analysis <- function (exp_data=NULL,fld_data=NUL, qual_data=NULL,
   final<-rbind(means, data.frame(line=c("lsd_05", "lsd_10", "mean"), trait=c(lsd_05, lsd_10, trial_mean) )) # bind up
   final$trial_name<- rep(paste(c("state_wide",years), collapse = '_'), nrow(final)) # add trait name which is state wide
   result_yr2_c_state<-final
-  if (is.null (yr2) | is.null(yr3)){ result_yr2_c_state<-NULL} # NULL IF yr2 or yr3 is missing
+  #if (is.null (yr2) | is.null(yr3)){ result_yr2_c_state<-NULL} # NULL IF yr2 or yr3 is missing
   rm(sel, data3, out, anova, number_enviro, number_reps,years, lsd_05, lsd_10, means, trial_mean, final) # house keeping
+  }
   #####
 
   #  3yr average
@@ -440,6 +451,8 @@ vt_analysis <- function (exp_data=NULL,fld_data=NUL, qual_data=NULL,
 
   # yr3 regular single loc
   #####
+  if (is.null (yr1) |is.null (yr2) | is.null (yr3)){ result_yr3<-NULL} else {
+  
   years<-c(yr1, yr2, yr3) # years we are looking at
   vt3<-subset(vt2, year %in% years) # subset by year
   sel<-aggregate(trait ~line +rep+trial_name , data=vt3, FUN=mean, na.rm=F) # get averages witin a locatsion
@@ -476,14 +489,16 @@ vt_analysis <- function (exp_data=NULL,fld_data=NUL, qual_data=NULL,
     rm(final)
   }
   result_yr3<-boot
-  if (is.null (yr1) | is.null (yr2) | is.null(yr3)){ result_yr3<-NULL} # NULL IF yr1 yr2 or y3 is missing
+  #if (is.null (yr1) | is.null (yr2) | is.null(yr3)){ result_yr3<-NULL} # NULL IF yr1 yr2 or y3 is missing
   rm(vt3, years,sel,lines3yr,data2, locs ,loc,
      data2b, data3,out,anova,number_enviro,  number_reps,lsd_05, lsd_10, means,trial_mean, boot) # house keeping
+  }
   print("line 472")
    #####
 
   # yr3  state wide average
   #####
+  if (is.null (yr1) |is.null (yr2) | is.null (yr3)){ result_yr3_state<-NULL} else {
   years<-c(yr1, yr2, yr3) # years we are looking at
   vt3<-subset(vt2, year %in% years) # subset by year
   sel<-aggregate(trait ~line +rep+trial_name , data=vt3, FUN=mean, na.rm=F) # get averages witin a locatsion
@@ -502,8 +517,9 @@ vt_analysis <- function (exp_data=NULL,fld_data=NUL, qual_data=NULL,
   final<-rbind(means, data.frame(line=c("lsd_05", "lsd_10", "mean"), trait=c(lsd_05, lsd_10, trial_mean) )) # bind up
   final$trial_name<- rep(paste(c("state_wide",years), collapse = '_'), nrow(final)) # add trait name which is state wide
   result_yr3_state<-final
-  if (is.null (yr1) | is.null (yr2) | is.null(yr3)){ result_yr3_state<-NULL} # NULL IF yr1 or yr2 or yr3 is missing
+  #if (is.null (yr1) | is.null (yr2) | is.null(yr3)){ result_yr3_state<-NULL} # NULL IF yr1 or yr2 or yr3 is missing
   rm(sel, lines3yr,data3, out, anova, number_enviro, number_reps,years, lsd_05, lsd_10, means, trial_mean, final) # house keeping
+  }
   #####
 
   # bind up final product

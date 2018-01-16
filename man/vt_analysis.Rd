@@ -15,7 +15,7 @@ vt_analysis(exp_data = NULL, fld_data = NUL, qual_data = NULL,
 
 \item{qual_data}{REQUIRED \code{data.frame} quality phenotype file from OAT DATA BASE}
 
-\item{yr1}{OPTIONAL \code{vector} first year of data to use example (2017) at least one value is required for yr1 or yr2}
+\item{yr1}{REQUIRED \code{vector} first year of data to use example (2017) at least one value is required for yr1 or yr2}
 
 \item{yr2}{OPTIONAL \code{vector} first year of data to use example (2016) at least one value is required for yr1 or yr2}
 
