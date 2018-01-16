@@ -517,7 +517,9 @@ vt_analysis <- function (exp_data=NULL,fld_data=NUL, qual_data=NULL,
   names(final_final)[2]<-trait # rename trait to user spec for trait
   rm(list=setdiff(ls(), "final_final"))
   print("it is done")
-
+  
+  final_final<-reshape(final_final, idvar = "line", timevar = "trial_name", direction = "wide")
+  
   return(final_final) # return the final_final product
 
   #####
