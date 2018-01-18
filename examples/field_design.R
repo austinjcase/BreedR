@@ -22,9 +22,9 @@ write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/
 write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/example_VT_entry.csv"),"vt_entry.csv", row.names =F)
 write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/oat_loc_ids.csv"),"locs.csv", row.names =F)
 write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/oat_trial_ids.csv"),"trial.csv", row.names =F)
-write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/example_pyt_chk.csv"), "iyt_chk.csv", row.names =F)
-write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/example_pyt_entry.csv"),"iyt_entry.csv", row.names =F)
-
+write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/example_pyt_chk.csv"), "pyt_chk.csv", row.names =F)
+write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/example_pyt_entry.csv"),"pyt_entry.csv", row.names =F)
+#
 
 #VTs
 ##############################
@@ -90,4 +90,27 @@ files2
 write.csv(maps2, paste(files2$trial[1],"map.csv", sep = "_"), row.names=F)
 write.csv(files2, paste(files2$trial[1],"data_book.csv", sep = "_"), row.names=F)
 
+##############
+#pyts's
+
+z<-make.pyt( loc.to.use="mos",
+             loc.ids="locs.csv",
+             trial.ids="trial.csv",
+             experiment="PYT",
+             entries= "pyt_entry.csv",
+             plot.start=1000,
+             year="2018",
+             zurn.seed=5,
+             checks ="pyt_chk.csv",
+             chk2rep =3,
+             nBlk = 6 )
+
+maps3<-y$map.file
+maps3
+
+files3<-z$data.book
+files3
+
+write.csv(maps3, paste(files3$trial[1],"map.csv", sep = "_"), row.names=F)
+write.csv(files3, paste(files3$trial[1],"data_book.csv", sep = "_"), row.names=F)
 
