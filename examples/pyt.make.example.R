@@ -1,6 +1,7 @@
 ###
 setwd("/Volumes/CFANS/AGRO/Oat_Lab/R CODES for planting/2018/")# set working directory 
 
+<<<<<<< HEAD
 # required pacakges
 devtools::install_github("austinjcase/BreedR")
 library(BreedR)
@@ -8,6 +9,8 @@ library(plyr)
 library(stringr)
 
 
+=======
+>>>>>>> 0fadad31045c130e606b6388b8bffa3669a910f1
 # download the working example data to the working directory
 write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/oat_loc_ids.csv"),"locs.csv", row.names =F)
 write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/oat_trial_ids.csv"),"trial.csv", row.names =F)
