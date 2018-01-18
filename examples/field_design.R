@@ -1,13 +1,7 @@
-######################################################
-##############################
-# DESIGN NOTES#
-## RCBD (Randomized Complete Block Design)
-# no checks
-# each entry apperes onece in the block
-# three blocks per location
 
 # required pacakges
 devtools::install_github("austinjcase/BreedR")
+
 library(BreedR)
 library(plyr)
 library(stringr)
@@ -22,15 +16,9 @@ write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/
 write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/example_VT_entry.csv"),"vt_entry.csv", row.names =F)
 write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/oat_loc_ids.csv"),"locs.csv", row.names =F)
 write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/oat_trial_ids.csv"),"trial.csv", row.names =F)
-<<<<<<< HEAD:examples/field_design.R
 write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/example_pyt_chk.csv"), "pyt_chk.csv", row.names =F)
 write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/example_pyt_entry.csv"),"pyt_entry.csv", row.names =F)
-#
-=======
-write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/example_pyt_chk.csv"), "iyt_chk.csv", row.names =F)
-write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/example_pyt_entry.csv"),"iyt_entry.csv", row.names =F)
 
->>>>>>> 0fadad31045c130e606b6388b8bffa3669a910f1:examples/rcb_design.R
 
 #VTs
 ##############################
@@ -42,7 +30,7 @@ write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/
 # three blocks per location
 # fills with entry is true meaning may be duplicate entery in a block
 
-?make.vt # help function
+?make.vt() # help function
 
 x<- make.vt(loc.to.use="mos", # this is the location use the codes
                       loc.ids="locs.csv", # ths is th csv file with loc id's
@@ -64,11 +52,10 @@ write.csv(maps, paste(files$trial[1],"map.csv", sep = "_"), row.names=F)
 write.csv(files, paste(files$trial[1],"data_book.csv", sep = "_"), row.names=F)
 
 ## IYT's
-######################################################
+##############################
 ##############################
 # DESIGN NOTES#
-## RCBD (Randomized Complete Block Design)
-# checks checks
+## RCBD (Randomized Complete Block Design) with checks
 # each entry apperes onece in the block each check twice in each block
 # three blocks per location
 # fill with chekcs
@@ -96,8 +83,22 @@ files2
 write.csv(maps2, paste(files2$trial[1],"map.csv", sep = "_"), row.names=F)
 write.csv(files2, paste(files2$trial[1],"data_book.csv", sep = "_"), row.names=F)
 
+
+## PYT's
+##############################
+##############################
+# DESIGN NOTES#
+# AIBD (Augmented Incomplete Block Design) with checks 
+# where checks apperear witin bloks but no entry replicatoin witin a block
+# six bolock default
+# there are primary and secondary checks
+# there is one primary check and it will be in each block
+# the secondary checks may appere in some or all blocks at random
+# where secondary checks are replicated 3 times in the whole field default
+# fill with chekcs
 ##############
-#pyts's
+
+?make.pyt()
 
 z<-make.pyt( loc.to.use="mos",
              loc.ids="locs.csv",
