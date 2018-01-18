@@ -7,8 +7,7 @@
 # three blocks per location
 
 # required pacakges
-library(devtools) 
-install_github("austinjcase/BreedR")
+devtools::install_github("austinjcase/BreedR")
 library(BreedR)
 library(plyr)
 library(stringr)
@@ -23,6 +22,8 @@ write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/
 write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/example_VT_entry.csv"),"vt_entry.csv", row.names =F)
 write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/oat_loc_ids.csv"),"locs.csv", row.names =F)
 write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/oat_trial_ids.csv"),"trial.csv", row.names =F)
+write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/example_pyt_chk.csv"), "iyt_chk.csv", row.names =F)
+write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/example_pyt_entry.csv"),"iyt_entry.csv", row.names =F)
 
 
 #VTs
@@ -51,7 +52,7 @@ maps<-x$map.file # map files
 maps
 files<-x$data.book # data sheet files
 files
-
+head(files)
 #write output files, remove the "#" to run
 write.csv(maps, paste(files$trial[1],"map.csv", sep = "_"), row.names=F)
 write.csv(files, paste(files$trial[1],"data_book.csv", sep = "_"), row.names=F)
