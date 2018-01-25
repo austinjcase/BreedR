@@ -1,14 +1,24 @@
 
 # required pacakges
-devtools::install_github("austinjcase/BreedR")
 
+#install BreedR
+devtools::install_github("austinjcase/BreedR")
 library(BreedR)
+
+# install plyr
+install.packages(plyr)
 library(plyr)
+
+# install stringr
+install.packages(stringr)
 library(stringr)
 
 
 # here set your workding direcotry
-setwd("/Volumes/CFANS/AGRO/Oat_Lab/R CODES for planting/2018/")# set working directory 
+# must be modifed
+# all files must be in working directory
+# setwd("/Volumes/CFANS/AGRO/Oat_Lab/R CODES for planting/2018/") # set working directory 
+setwd("/Users/case0197/Desktop") # Or desktop
 
 # download the working example data to the working directory
 write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/example_IYT_chk.csv"), "iyt_chk.csv", row.names =F)
@@ -20,7 +30,7 @@ write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/
 write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/example_pyt_entry.csv"),"pyt_entry.csv", row.names =F)
 
 
-#VTs
+#VTs /MAT or COPS
 ##############################
 ##############################
 # DESIGN NOTES#
@@ -40,10 +50,12 @@ x<- make.vt(loc.to.use="mos", # this is the location use the codes
                      plot.start=1, # number to start teh first plot on 
                      number.blocks=3, # number of blocks 
                      year=2018, # the planting year
-            zurn.seed=5) # the zurn crop number for oat this is 5, barley is 3
+                zurn.seed=5) # the zurn crop number for oat this is 5, barley is 3
 
+# makes the map 
 maps<-x$map.file # map files
 maps
+
 files<-x$data.book # data sheet files
 files
 head(files)
@@ -51,7 +63,7 @@ head(files)
 write.csv(maps, paste(files$trial[1],"map.csv", sep = "_"), row.names=F)
 write.csv(files, paste(files$trial[1],"data_book.csv", sep = "_"), row.names=F)
 
-## IYT's
+## IYT's / MIT 
 ##############################
 ##############################
 # DESIGN NOTES#
@@ -60,18 +72,23 @@ write.csv(files, paste(files$trial[1],"data_book.csv", sep = "_"), row.names=F)
 # three blocks per location
 # fill with chekcs
 
+
 ?make.iyt() #help files
 
-y<-make.iyt(loc.to.use="mos", # this is the location use the codes
-          loc.ids="locs.csv", # ths is th csv file with loc id's
-          trial.ids="trial.csv", # this is the csv file with the trail ids
-          experiment="IYT", # name of the expeiremnt 
-          entries="iyt_entry.csv", # csv file with the entry list
-          plot.start=1000, # plot 1 stat number
-          number.blocks=3, # number of blocks 
-          year=2018,# plating year
-          zurn.seed=5,  #zurn.seed nubmer 5 for oat 3 for barley
-          checks ="iyt_chk.csv") 
+y<-make.iyt(loc.to.use="crk", # this is the location use the codes # must match locs.csv
+            experiment="EDS", # name of the expeiremnt  # must match trial.csv
+            #
+            entries="iyt_entry.csv", # csv file with the entry list
+            checks ="iyt_chk.csv", # 
+            #
+            plot.start=100, # plot 1 stat number
+            number.blocks=1, # number of blocks 
+            year=2018,       # plating year
+            zurn.seed=3,    #zurn.seed nubmer 5 for oat 3 for barley
+            #
+            # not needed to change below but can change if not using example file names
+            loc.ids="locs.csv", # ths is th csv file with loc id's
+            trial.ids="trial.csv")  # this is the csv file with the trail ids) 
 
 maps2<-y$map.file # map files
 maps2
@@ -84,7 +101,7 @@ write.csv(maps2, paste(files2$trial[1],"map.csv", sep = "_"), row.names=F)
 write.csv(files2, paste(files2$trial[1],"data_book.csv", sep = "_"), row.names=F)
 
 
-## PYT's
+## PYT's /SPY
 ##############################
 ##############################
 # DESIGN NOTES#
@@ -112,7 +129,7 @@ z<-make.pyt( loc.to.use="mos",
              chk2rep =3,
              nBlk = 6 )
 
-maps3<-y$map.file
+maps3<-z$map.file
 maps3
 
 files3<-z$data.book
