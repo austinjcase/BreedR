@@ -34,7 +34,8 @@ make.pyt <- function(
   zurn.seed=NULL,
   checks ="pyt_chk.csv",
   chk2rep =3,
-  nBlk = 6){
+  nBlk = 6,
+  num.beds=NULL){
   
   # from user inputs
   loc.to.use<-loc.to.use
@@ -48,11 +49,13 @@ make.pyt <- function(
   checks<-read.csv(checks)
   chk2rep <-chk2rep
   nBlk <- nBlk
-  
+  num.beds<-num.beds
+  #
+  if(nBlk <= sqrt(dim(entries)[1])) {stop("suggested number of primary check and blocks should be sqrt(# of entries)")}
   #
   # deduced from user inputs
   location.list<-loc.ids$environment # will make a file for each locatio i nthe loc.ids file 
-  bed.list<-loc.ids$beds
+  #bed.list<-loc.ids$beds
   i<-which(location.list ==loc.to.use) # get postion of the name of the locatoin 
   enviro<-location.list[i] # geting the enviroemnt to use
   
@@ -61,7 +64,7 @@ make.pyt <- function(
                       chks = checks, 
                       nChk2.min =chk2rep,
                       entries = entries, 
-                      nFieldRows = bed.list[i], 
+                      nFieldRows = num.beds, 
                       plot.start = plot.start, 
                       fillWithEntry = FALSE, 
                       fillWithChk = TRUE, 
@@ -75,6 +78,7 @@ make.pyt <- function(
   check.lay<-aibd$check.layout
   check.lay<-as.data.frame(check.lay)
   map<-cbind(loc=rep(enviro, nrow(plot.lay)), plot.lay, blk.lay,check.lay )
+  #
   
   #making the data file 
   dgn<-aibd$aibd.dg

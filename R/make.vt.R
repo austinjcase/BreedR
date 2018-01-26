@@ -38,7 +38,8 @@ make.vt <- function(
   experiment=NULL,
   entries= NULL, 
   plot.start=1000, 
-  number.blocks=3, 
+  number.blocks=3,
+  num.beds=NULL,
   year=NULL, 
   zurn.seed=NULL){
   
@@ -58,14 +59,18 @@ make.vt <- function(
   number.blocks<-number.blocks
   year<-year
   zurn.seed<-zurn.seed
+  num.beds<-num.beds
   #
   # deduced from user inputs
   location.list<-loc.ids$environment # will make a file for each locatio i nthe loc.ids file 
-  bed.list<-loc.ids$beds
+  #bed.list<-loc.ids$beds
+  
   i<-which(location.list ==loc.to.use) # get postion of the name of the locatoin 
+  
   enviro<-location.list[i] # geting the enviroemnt to use
+  
   rcbd <- design.rcbd(enviro = location.list[i], exp.name = experiment, nChkReps =0,
-                      nBlks = number.blocks, entries = entries, nChks = 0, nFieldRows = bed.list[i], 
+                      nBlks = number.blocks, entries = entries, nChks = 0, nFieldRows = num.beds, 
                       plot.start = plot.start, fillWithEntry = TRUE, fillWithChk = FALSE)
   # makin the map file
   plot.lay<-rcbd$plot.layout
