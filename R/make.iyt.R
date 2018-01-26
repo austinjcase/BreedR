@@ -32,10 +32,12 @@ make.iyt <- function(
   experiment=NULL,
   entries= NULL, 
   plot.start=1000, 
-  number.blocks=3, 
+  number.blocks=3,
+  num.beds=NULL,
   year=NULL, 
   zurn.seed=NULL, 
-  checks =NULL){
+  checks =NULL, 
+  num.reps.chk=2){
   #
   #pacakges needed
   library(BreedR)
@@ -54,15 +56,35 @@ make.iyt <- function(
   year<-year
   zurn.seed<-zurn.seed
   checks<-read.csv(checks)
+  num.beds<-num.beds
+  num.reps.chk<-num.reps.chk
   
   #
   # deduced from user inputs
   location.list<-loc.ids$environment # will make a file for each locatio i nthe loc.ids file 
-  bed.list<-loc.ids$beds
+  #bed.list<-loc.ids$beds
+  #bed.list<-num.beds
+  
+  
+  ### testing if the number of checks was good between 10% and 25%
+  # interval test function
+  in_interval <- function(x, interval){ 
+    stopifnot(length(interval) == 2L)
+    interval[1] <= x & x <= interval[2]
+  }
+
+  if(in_interval(dim(checks)[1], c(ceiling ((dim(entries)[1] *.1)/num.reps.chk), ceiling ((dim(entries)[1] *.25)/num.reps.chk))) == F ) {
+    stop("suggested number of checks is ",ceiling ((dim(entries)[1] *.1)/num.reps.chk), " to ", ceiling ((dim(entries)[1] *.25)/num.reps.chk), 
+         " change value of num.reps.chk or number of checks")}
+
+    
+  ###
+  
+  
   i<-which(location.list ==loc.to.use) # get postion of the name of the locatoin 
   enviro<-location.list[i] # geting the enviroemnt to use
-  rcbd <- design.rcbd(enviro = location.list[i], exp.name = experiment, chks = checks, nChkReps =2,
-                      nBlks = number.blocks, entries = entries, nChks = 0, nFieldRows = bed.list[i], 
+  rcbd <- design.rcbd(enviro = location.list[i], exp.name = experiment, chks = checks, nChkReps =num.reps.chk,
+                      nBlks = number.blocks, entries = entries, nChks = 0, nFieldRows = num.beds, 
                       plot.start = plot.start, fillWithEntry = FALSE, fillWithChk = TRUE)
   # makin the map file
   plot.lay<-rcbd$plot.layout
@@ -113,8 +135,11 @@ make.iyt <- function(
   dgn$trial<-paste(c(experiment,year,as.character(enviro[1])),collapse="_") # adding data based trail naems
    dgn<-dgn[,-c(2, 4, 12  ,13  ,14,   15,  16 )] # droping unndded cols
   dgn<-dgn[ order(dgn$line_name,dgn$plant_order ) , ] # reorder for packing 
- 
+
+
+  
   return(list(data.book=dgn, map.file=map))
+  
 }
 
 

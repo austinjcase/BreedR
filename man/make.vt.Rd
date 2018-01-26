@@ -6,7 +6,7 @@
 \usage{
 make.vt(loc.to.use = NULL, loc.ids = NULL, trial.ids = NULL,
   experiment = NULL, entries = NULL, plot.start = 1000,
-  number.blocks = 3, year = NULL, zurn.seed = NULL)
+  number.blocks = 3, num.beds = NULL, year = NULL, zurn.seed = NULL)
 }
 \arguments{
 \item{loc.to.use}{REQUIRED is the name of the location useing hte code naem ie "crk"}
