@@ -124,11 +124,11 @@ write.csv(files2, paste(files2$trial[1],"data_book.csv", sep = "_"), row.names=F
 # DESIGN NOTES#
 # AIBD (Augmented Incomplete Block Design) with checks 
 # where checks apperear witin bloks but no entry replicatoin witin a block
-<<<<<<< HEAD
+#
 # number of blocks should be sqrt of number of entries if 300, so sqrt(300) =18
-=======
+#
 # number of blocks should be sqrt of number of entries sqrt(300) =18
->>>>>>> 810ac02320d80513c309e1bc1f1fd0cf9b73dfa9
+#
 # there are primary and secondary checks
 # there is one primary check and it will be in each block
 # the secondary checks may appere in some or all blocks at random
@@ -140,7 +140,6 @@ write.csv(files2, paste(files2$trial[1],"data_book.csv", sep = "_"), row.names=F
 pyt.out<-make.pyt( 
              # MUST CHANGE THESE THINGS BY LOCATION
              loc.to.use="mos",
-<<<<<<< HEAD
              experiment="FOUNDER",
              num.beds=12,
              #
@@ -151,7 +150,6 @@ pyt.out<-make.pyt(
              # THIS IS THE DEFAULTS, DONT NEED TO CHANGE THEM BUT CHECK THEM FIRST TIME
              plot.start=1000,
              nBlk = 16,
-=======
              experiment="PYT",
              num.beds=8,
              #
@@ -162,7 +160,6 @@ pyt.out<-make.pyt(
              # THIS IS THE DEFAULTS, DONT NEED TO CHANGE THEM BUT CHECK THEM FIRST TIME
              plot.start=1000,
              nBlk = 18,
->>>>>>> 810ac02320d80513c309e1bc1f1fd0cf9b73dfa9
              year=2018,
              zurn.seed=5,
              chk2rep = 3,
