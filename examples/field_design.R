@@ -4,6 +4,8 @@
 # notes add beds as user setting
 # make the outputs into a better format
 
+install.packages("read")
+
 # install devtools
 install.packages("devtools")
 library(devtools)
@@ -25,20 +27,19 @@ library(stringr)
 # here set your workding direcotry
 # must be modifed
 # all files must be in working directory
+
 setwd("/Volumes/CFANS/AGRO/Oat_Lab/R CODES for planting/R JUNK/") # set working directory 
 #setwd("/Users/case0197/Desktop") # Or desktop
 
 # download the working example data to the working directory
 
-write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/example_IYT_chk.csv"), "iyt_chk.csv", row.names =F)
 
+write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/example_IYT_chk.csv"), "iyt_chk.csv", row.names =F)
 write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/example_IYT_entry.csv"),"iyt_entry.csv", row.names =F)
 write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/example_VT_entry.csv"),"vt_entry.csv", row.names =F)
 write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/oat_loc_ids.csv"),"locs.csv", row.names =F)
 write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/oat_trial_ids.csv"),"trial.csv", row.names =F)
-
 write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/example_pyt_chk.csv"), "pyt_chk.csv", row.names =F)
-
 write.csv(read.csv("https://raw.githubusercontent.com/austinjcase/BreedR/master/exmple%20data/example_pyt_entry.csv"),"pyt_entry.csv", row.names =F)
 
 
