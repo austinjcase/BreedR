@@ -76,7 +76,14 @@ make.iyt <- function(
   if(in_interval(dim(checks)[1], c(ceiling ((dim(entries)[1] *.1)/num.reps.chk), ceiling ((dim(entries)[1] *.25)/num.reps.chk))) == F ) {
     stop("suggested number of checks is ",ceiling ((dim(entries)[1] *.1)/num.reps.chk), " to ", ceiling ((dim(entries)[1] *.25)/num.reps.chk), 
          " change value of num.reps.chk or number of checks")}
-
+  
+  
+  #checking if the checks are not a entry
+  conflicts<-checks$line %in% entries$line
+  conflict.chk<-checks$line [which(conflicts == TRUE)]
+  if(any(conflicts == TRUE)) {warning("checks must not appear in the entry list, suggest add '_chk' to ", conflict.chk)}
+  if(any(conflicts == TRUE)) {stop(" ")}
+  #
     
   ###
   

@@ -70,10 +70,16 @@ vt.out<- make.vt(
 # makes the map 
 maps<-vt.out$map.file # map files
 files<-vt.out$data.book # data sheet files
+table(files$plot, files$line_name )
+
+
+#repbyrep<-reshape(files[, c("line_name", "plot", "replication")], idvar = "line_name", timevar = "replication", direction = "wide")
+
 
 #write output files
 write.csv(maps, paste(files$trial[1],"map.csv", sep = "_"), row.names=F)
 write.csv(files, paste(files$trial[1],"data_book.csv", sep = "_"), row.names=F)
+#write.csv(repbyrep, paste(files$trial[1],"repbyrep.csv", sep = "_"), row.names=F)
 #########################################################################################
 #########################################################################################
 
@@ -113,6 +119,10 @@ iyt.out<-make.iyt(
 
 maps2<-iyt.out$map.file # map files
 files2<-iyt.out$data.book # data sheet files
+#repbyrep2<-reshape(files2[, c("line_name", "plot", "replication")], idvar = "line_name", timevar = "replication", direction = "wide")
+#library(reshape2)
+
+
 
 #write output files, remove the "#" to run
 write.csv(maps2, paste(files2$trial[1],"map.csv", sep = "_"), row.names=F)

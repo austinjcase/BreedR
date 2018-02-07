@@ -50,8 +50,14 @@ make.pyt <- function(
   chk2rep <-chk2rep
   nBlk <- nBlk
   num.beds<-num.beds
-  #
+  # checking the number of blocks
   if(nBlk <= sqrt(dim(entries)[1])) {stop("suggested number of primary check and blocks should be sqrt(# of entries)")}
+  #
+  #checking if the checks are not a entry
+  conflicts<-checks$line %in% entries$line
+  conflict.chk<-checks$line [which(conflicts == TRUE)]
+  if(any(conflicts == TRUE)) {warning("checks must not appear in the entry list, suggest add '_chk' to ", conflict.chk)}
+  if(any(conflicts == TRUE)) {stop(" ")}
   #
   # deduced from user inputs
   location.list<-loc.ids$environment # will make a file for each locatio i nthe loc.ids file 
