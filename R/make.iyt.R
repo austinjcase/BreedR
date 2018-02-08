@@ -140,8 +140,8 @@ make.iyt <- function(
   #######################################################
    # house keeping making the files better to order
   dgn$trial<-paste(c(experiment,year,as.character(enviro[1])),collapse="_") # adding data based trail naems
-  dgn<-dgn[,-c(2, 4, 12  ,13  ,14,   15 )] # droping unndded cols
-  #dgn<-dgn[,-c(2, 4, 12  ,13  ,14,   15,  16 )] # droping unndded cols
+  #dgn<-dgn[,-c(2, 4, 12  ,13  ,14,   15 )] # droping unndded cols
+  dgn<-dgn[,-c(2, 4, 12  ,13  ,14,   15,  16 )] # droping unndded cols
   dgn<-dgn[ order(dgn$line_name,dgn$plant_order ) , ] # reorder for packing 
 
 

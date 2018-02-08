@@ -70,8 +70,9 @@ vt.out<- make.vt(
 # makes the map 
 maps<-vt.out$map.file # map files
 files<-vt.out$data.book # data sheet files
-table(files$plot, files$line_name )
 
+
+# make a rep by rep line up
 
 #repbyrep<-reshape(files[, c("line_name", "plot", "replication")], idvar = "line_name", timevar = "replication", direction = "wide")
 
