@@ -154,18 +154,8 @@ write.csv(files2, paste(files2$trial[1],"data_book.csv", sep = "_"), row.names=F
 pyt.out<-make.pyt( 
              # MUST CHANGE THESE THINGS BY LOCATION
              loc.to.use="mos",
-             experiment="FOUNDER",
-             num.beds=12,
-             #
-             # MUST CHANGE THESE TINGS BY TRIAL i.e. MIT/MAT/IYT...
-             entries= "founder_entry.csv",
-             checks ="founder_chk.csv",
-             #
-             # THIS IS THE DEFAULTS, DONT NEED TO CHANGE THEM BUT CHECK THEM FIRST TIME
-             plot.start=1000,
-             nBlk = 16,
              experiment="PYT",
-             num.beds=8,
+             num.beds=12,
              #
              # MUST CHANGE THESE TINGS BY TRIAL i.e. MIT/MAT/IYT...
              entries= "pyt_entry.csv",
@@ -184,6 +174,7 @@ pyt.out<-make.pyt(
 
 maps3<-pyt.out$map.file
 files3<-pyt.out$data.book
+
 dim(files3)
 
 write.csv(maps3, paste(files3$trial[1],"map.csv", sep = "_"), row.names=F)

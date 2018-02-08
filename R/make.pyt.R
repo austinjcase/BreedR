@@ -124,9 +124,7 @@ make.pyt <- function(
   #######################################################
   # house keeping making the files better to order
   dgn$trial<-paste(c(experiment,year,as.character(enviro[1])),collapse="_") # adding data based trail naems
-  #dgn<-dgn[,-c(2, 4, 6, 15:19 )] # droping unndded cols
-  #dgn<-dgn[,-c(2, 4, 15:18 )] # droping unndded cols
-  dgn<-dgn[,-c(2, 4, 15:17 )] # droping unndded cols
+  dgn<-dgn[,-c(2, 4, 15:18 )] # droping unndded cols
   head(dgn)
   dgn<-dgn[ order(dgn$line_name,dgn$plant_order ) , ] # reorder for packing 
   return(list(data.book=dgn, map.file=map))
