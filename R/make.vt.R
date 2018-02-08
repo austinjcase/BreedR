@@ -119,7 +119,7 @@ make.vt <- function(
   
   # house keeping making the files better to order
   dgn$trial<-paste(c(experiment,year,as.character(enviro[1])),collapse="_") # adding data based trail naems
-  dgn<-dgn[,-c(2, 4, 11, 13,14,15, 16, 17 )] # droping unndded cols
+  #dgn<-dgn[,-c(2, 4, 11, 13,14,15, 16, 17 )] # droping unndded cols
   dgn<-dgn[ order(dgn$line_name,dgn$plant_order ) , ] # reorder for packing 
    return(list(data.book=dgn, map.file=map))
 }

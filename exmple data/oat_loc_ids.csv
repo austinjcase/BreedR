@@ -1,24 +1,24 @@
-loc.number,location,environment,beds
-1,Saint Paul,stp,8
-2,Rosemount,ros,8
-3,Waseca,was,6
-4,Lamberton,lam,8
-5,Morris,mos,10
-6,Crookston,crk,12
-7,Roseau,rse,8
-8,Grand Rapids,grd,8
-9,Becker,bec,8
-10,Fergus Falls,fef,8
-11,Perley,per,8
-12,Oklee,olk,8
-13,Stephen,ste,8
-14,Strathcona,str,8
-15,Hallock,hal,8
-16,Benson,ben,8
-17,Le Center,lec,8
-18,Kimball,kim,8
-19,New Ulm,new,8
-20,Rochester,roc,11
-52,Buckthorn,btn,8
-58,BYDV,ydv,8
-66,Smut,smt,8
+loc.number,location,environment
+1,Saint Paul,stp
+2,Rosemount,ros
+3,Waseca,was
+4,Lamberton,lam
+5,Morris,mos
+6,Crookston,crk
+7,Roseau,rse
+8,Grand Rapids,grd
+9,Becker,bec
+10,Fergus Falls,fef
+11,Perley,per
+12,Oklee,olk
+13,Stephen,ste
+14,Strathcona,str
+15,Hallock,hal
+16,Benson,ben
+17,Le Center,lec
+18,Kimball,kim
+19,New Ulm,new
+20,Rochester,roc
+52,Buckthorn,btn
+58,BYDV,ydv
+66,Smut,smt
