@@ -41,7 +41,10 @@ make.vt <- function(
   number.blocks=3,
   num.beds=NULL,
   year=NULL, 
-  zurn.seed=NULL){
+  zurn.seed=NULL, 
+  fill.entry=TRUE,
+  fill.chk =FALSE
+  ){
   
   #pacakges needed
   library(BreedR)
@@ -71,7 +74,7 @@ make.vt <- function(
   
   rcbd <- design.rcbd(enviro = location.list[i], exp.name = experiment, nChkReps =0,
                       nBlks = number.blocks, entries = entries, nChks = 0, nFieldRows = num.beds, 
-                      plot.start = plot.start, fillWithEntry = TRUE, fillWithChk = FALSE)
+                      plot.start = plot.start, fillWithEntry = fill.entry, fillWithChk = fill.chk)
   # makin the map file
   plot.lay<-rcbd$plot.layout
   plot.lay<-as.data.frame(plot.lay)
@@ -123,6 +126,6 @@ make.vt <- function(
   #dgn<-dgn[,-c(2, 4, 11, 13,14,15, 16, 17 )] # droping unndded cols
   dgn<-dgn[,-c(2, 4, 11, 13,14,15, 16 )] # droping un-needed cols
   
-  dgn<-dgn[ order(dgn$line_name,dgn$plant_order ) , ] # reorder for packing 
+ # dgn<-dgn[ order(dgn$line_name,dgn$plant_order ) , ] # reorder for packing 
    return(list(data.book=dgn, map.file=map))
 }

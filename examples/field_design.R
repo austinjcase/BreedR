@@ -53,7 +53,7 @@ vt.out<- make.vt(
             # MUST CHANGE THESE THINGS BY LOCATION
             loc.to.use="mos", # this is the location use the codes
             experiment="VT",  # name of the expeiremnt must match trail names
-            num.beds=8,       # number of beds, i.e. number of field rows
+            num.beds=10,       # number of beds, i.e. number of field rows
             #
             # MUST CHANGE THESE TINGS BY TRIAL i.e. MIT/MAT/IYT...
             entries="vt_entry.csv", # csv file with the entry list
@@ -62,7 +62,9 @@ vt.out<- make.vt(
             plot.start=1,    # number to start the first plot on 
             number.blocks=3, # number of blocks 
             year=2018,       # the planting year
-            zurn.seed=5,     # the zurn crop number for oat this is 5, barley is 3
+            zurn.seed=5,
+            fill.entry=FALSE, # fill are done with entry, default is TRUE, one and only of may must be true 
+            fill.chk =FALSE, # fill with chekcs, deafalut is FALSE, one and only of these may be true
             #
             loc.ids="locs.csv",    # ths is th csv file with loc id's
             trial.ids="trial.csv") # this is the csv file with the trail ids  
