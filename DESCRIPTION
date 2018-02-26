@@ -1,7 +1,7 @@
 Package: BreedR
 Type: Package
 Title: An R package for managing a breeding program
-Version: 0.3.7
+Version: 0.3.8
 Author: Austin Case
 Maintainer: The package maintainer <case0197@umn.edu>
 Description: This package allows access to the umn oat and barley breeding files. Props to Tyler Tiede for FldTrl functions
