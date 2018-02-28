@@ -24,6 +24,8 @@ library(stringr)
 # all files must be in working directory
 
 setwd("/Volumes/CFANS/AGRO/Oat_Lab/R CODES for planting/R JUNK/") # set working directory 
+
+setwd("/Volumes/CFANS/AGRO/Oat_Lab/2018/FIELD/2018_R_designs//") # set working directory 
 #setwd("/Users/case0197/Desktop") # Or desktop
 
 # download the working example data to the working directory
@@ -155,17 +157,17 @@ write.csv(files2, paste(files2$trial[1],"data_book.csv", sep = "_"), row.names=F
 
 pyt.out<-make.pyt( 
              # MUST CHANGE THESE THINGS BY LOCATION
-             loc.to.use="mos",
-             experiment="PYT",
-             num.beds=12,
+             loc.to.use="lam",
+             experiment="FOUNDER",
+             num.beds=8,
              #
              # MUST CHANGE THESE TINGS BY TRIAL i.e. MIT/MAT/IYT...
-             entries= "pyt_entry.csv",
-             checks ="pyt_chk.csv",
+             entries= "founder_entry.csv",
+             checks ="founder_chk_2.csv",
              #
              # THIS IS THE DEFAULTS, DONT NEED TO CHANGE THEM BUT CHECK THEM FIRST TIME
-             plot.start=1000,
-             nBlk = 18,
+             plot.start=9500,
+             nBlk = 16,
              year=2018,
              zurn.seed=5,
              chk2rep = 3,
