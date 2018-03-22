@@ -23,7 +23,7 @@
 #' 
 #' 
 #' @export
-#' make.iyt
+
 
 make.iyt <- function(
   loc.to.use=NULL,
