@@ -73,7 +73,7 @@ make.iyt <- function(
     interval[1] <= x & x <= interval[2]
   }
 
-  if(in_interval(dim(checks)[1], c(ceiling ((dim(entries)[1] *.1)/num.reps.chk), ceiling ((dim(entries)[1] *.25)/num.reps.chk))) == F ) {
+ # if(in_interval(dim(checks)[1], c(ceiling ((dim(entries)[1] *.1)/num.reps.chk), ceiling ((dim(entries)[1] *.25)/num.reps.chk))) == F ) {
     stop("suggested number of checks is ",ceiling ((dim(entries)[1] *.1)/num.reps.chk), " to ", ceiling ((dim(entries)[1] *.25)/num.reps.chk), 
          " change value of num.reps.chk or number of checks")}
   
