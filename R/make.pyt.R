@@ -32,9 +32,9 @@ make.pyt <- function(
   plot.start=1000,
   year=NULL,
   zurn.seed=NULL,
-  checks ="pyt_chk.csv",
-  chk2rep =3,
-  nBlk = 6,
+  checks =NULL,
+  chk2rep =NULL,
+  nBlk = NULL,
   num.beds=NULL){
   
   # from user inputs

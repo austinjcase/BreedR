@@ -83,7 +83,7 @@
 #' @export
 
 
-design.aibd <- function(enviro=format(Sys.Date(), "%x"), exp.name=NULL, entries=NULL, nEntries= NULL, chks= NULL, nChk2= NULL, nFieldRows= NULL,  nRowsPerBlk=NULL, nFieldCols= NULL, nColsPerBlk=NULL, nBlks.min=3, minDims=c(2,4), maxDims=c(Inf, Inf), nChk2.min=3, plot.start=1001, plot_id.template = NULL, minPerChks=0.09, maxPerChks=0.25, fillWithEntry=T, dup.list=NULL, fillWithChk=F){
+design.aibd <- function(enviro=format(Sys.Date(), "%x"), exp.name=NULL, entries=NULL, nEntries= NULL, chks= NULL, nChk2= NULL, nFieldRows= NULL,  nRowsPerBlk=NULL, nFieldCols= NULL, nColsPerBlk=NULL, nBlks.min=1, minDims=c(1,1), maxDims=c(Inf, Inf), nChk2.min=1, plot.start=1001, plot_id.template = NULL, minPerChks=0.00, maxPerChks=0.99, fillWithEntry=T, dup.list=NULL, fillWithChk=F){
 
   ## Set some parameters to NULL
   nBlkRows <- nBlkCols <- NULL
