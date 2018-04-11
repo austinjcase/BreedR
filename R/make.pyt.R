@@ -51,7 +51,7 @@ make.pyt <- function(
   nBlk <- nBlk
   num.beds<-num.beds
   # checking the number of blocks
-  if(nBlk <= sqrt(dim(entries)[1])) {stop("suggested number of primary check and blocks should be sqrt(# of entries)")}
+  if(nBlk <= sqrt(dim(entries)[1])) {warning("suggested number of primary check and blocks should be sqrt(# of entries)")}
   #
   #checking if the checks are not a entry
   conflicts<-checks$line %in% entries$line
