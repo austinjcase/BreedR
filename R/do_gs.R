@@ -40,7 +40,7 @@ do.gs<-function(geno=NULL, pheno=NULL, id=NULL, cross.valid=F, prog.valid = F, t
   #########################
   # processing data files
   library(rrBLUP)
-  row.names(geno)<-geno[,1] # set row names for genotypes 
+  row.names(geno)<-geno[,"line_name"] # set row names for genotypes 
   geno<-geno[,-c(1)] # drop genotypes names
   geno<-as.matrix(geno)
   ##########################
@@ -53,7 +53,7 @@ do.gs<-function(geno=NULL, pheno=NULL, id=NULL, cross.valid=F, prog.valid = F, t
       print("DOING CROSS VALIDATION") # confirm cross valid
       print(paste("REP", i, "of", nrep))
       vp.size<-(1-tp.size) # get vp size
-      whole.pop<-row.names(geno) # getting names of all pop
+      whole.pop<-Reduce(intersect, list(row.names(geno),pheno$line_name)) # getting names of all pop
       tp.cross<-sample(whole.pop, ceiling(length(whole.pop)* tp.size)) # sampleing the names in TP
       vp.cross<-setdiff(whole.pop, tp.cross) # sampleing names in the VP 
       geno_tp <- geno[tp.cross, , drop = FALSE] # subset geno for tp
@@ -94,7 +94,7 @@ do.gs<-function(geno=NULL, pheno=NULL, id=NULL, cross.valid=F, prog.valid = F, t
   if (prog.valid == T ){
     out<-NULL
     print("DOING PROG VALIDATION") # confirm cross valid
-    whole.pop<-row.names(geno) # getting names of all pop
+    whole.pop<-Reduce(intersect, list(row.names(geno),pheno$line_name)) # getting names of all pop
     vp<-subset(id, class == "prog")
     vp<-vp$line_name
     tp<-subset(id, class == "train")
