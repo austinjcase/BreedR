@@ -4,23 +4,24 @@
 \alias{line_means}
 \title{line_means function}
 \usage{
-line_means(expt = NULL, field = NULL, qual = NULL, traits = NULL,
-  year = NULL, lines = NULL, trial = NULL)
+line_means(expt.impt = NULL, field.impt = NULL, qual.impt = NULL,
+  traits.impt = NULL, year.impt = NULL, lines.impt = NULL,
+  trial.impt = NULL)
 }
 \arguments{
-\item{expt}{REQUIRED \code{data.frame} experiemtn description file from OAT DATA BASE}
+\item{expt.impt}{REQUIRED \code{data.frame} experiemtn description file from OAT DATA BASE}
 
-\item{field}{REQUIRED \code{data.frame}  field phenotype file from OAT DATA BASE}
+\item{field.impt}{REQUIRED \code{data.frame}  field phenotype file from OAT DATA BASE}
 
-\item{qual}{REQUIRED \code{data.frame} quality phenotype file from OAT DATA BASE}
+\item{qual.impt}{REQUIRED \code{data.frame} quality phenotype file from OAT DATA BASE}
 
-\item{traits}{REQUIRED \code{list} a list of traits to use}
+\item{traits.impt}{REQUIRED \code{list} a list of traits to use}
 
-\item{year}{OPTIONAL \code{list} list of years to use}
+\item{year.impt}{OPTIONAL \code{list} list of years to use}
 
-\item{lines}{OPTIONAL \code{list} list of lines to use}
+\item{lines.impt}{OPTIONAL \code{list} list of lines to use}
 
-\item{trial}{OPTIONAL \code{list} list of trials to use see OAT DATA BASE FOR CODE}
+\item{trial.impt}{OPTIONAL \code{list} list of trials to use see OAT DATA BASE FOR CODE}
 }
 \description{
 This function allows line means to be gathered accross year and trials, gives simple means

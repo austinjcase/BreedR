@@ -1,13 +1,13 @@
 #' line_means function
 #'
 #' This function allows line means to be gathered accross year and trials, gives simple means
-#' @param expt REQUIRED \code{data.frame} experiemtn description file from OAT DATA BASE
-#' @param field REQUIRED \code{data.frame}  field phenotype file from OAT DATA BASE
-#' @param qual REQUIRED \code{data.frame} quality phenotype file from OAT DATA BASE
-#' @param traits REQUIRED \code{list} a list of traits to use
-#' @param year OPTIONAL \code{list} list of years to use
-#' @param lines OPTIONAL \code{list} list of lines to use
-#' @param trial OPTIONAL \code{list} list of trials to use see OAT DATA BASE FOR CODE
+#' @param expt.impt REQUIRED \code{data.frame} experiemtn description file from OAT DATA BASE
+#' @param field.impt REQUIRED \code{data.frame}  field phenotype file from OAT DATA BASE
+#' @param qual.impt REQUIRED \code{data.frame} quality phenotype file from OAT DATA BASE
+#' @param traits.impt REQUIRED \code{list} a list of traits to use
+#' @param year.impt OPTIONAL \code{list} list of years to use
+#' @param lines.impt OPTIONAL \code{list} list of lines to use
+#' @param trial.impt OPTIONAL \code{list} list of trials to use see OAT DATA BASE FOR CODE
 #' 
 #' @keywords line_means
 #' @export
@@ -36,30 +36,33 @@
 #' line_means
 
 
-line_means<-function(expt=NULL,
-                     field=NULL,
-                     qual=NULL,
-                     traits=NULL,
-                     year=NULL,
-                     lines=NULL,
-                     trial=NULL){
+line_means<-function(expt.impt=NULL,
+                     field.impt=NULL,
+                     qual.impt=NULL,
+                     traits.impt=NULL,
+                     year.impt=NULL,
+                     lines.impt=NULL,
+                     trial.impt=NULL){
   ### function START
-  expt<-expt
-  field<-field
-  qual<-qual
-  traits<-traits
-  year<-year
-  lines<-lines
-  trial<-trial
+ expt<-expt.impt
+  field<-field.impt
+  qual<-qual.impt
+  #traits<-traits.impt
+  year<-year.impt
+  lines<-lines.impt
+  trial<-trial.impt
   ###
+  
   out1<-data.pull(expt =expt, 
                   field= field, 
                   qual = qual, 
                   year=year, 
                   lines =lines ,
                   trial = trial )
-  traits<-c('line', traits)
-  out<-aggregate(. ~ line, data=out1[,..traits], mean, na.rm=TRUE, na.action= NULL)
+  traits<-c('line', traits.impt)
+  out1<-as.data.frame(out1)
+  q<-out1[,traits]
+  out<-aggregate(. ~ line, data=q, mean, na.rm=TRUE, na.action= NULL)
   return(out)
 }
 
