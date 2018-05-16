@@ -21,35 +21,6 @@ out2<-line_means(expt.impt=exp_odb,
 out2
 
 
-
-
-
-  expt<-exp_odb
-  field<-fld_odb
-  qual<-qual_odb
-  traits<-c('yield', 'test_weight', 'groat_glucan', 'cr_sev')
-  year<-c(2017, 2016)
-  lines<-c('DEON','SABER')
-  trial<-c('vt','pyt')
-  ###
-  out1<-data.pull(expt =expt, 
-                  field= field, 
-                  qual = qual, 
-                  year=year, 
-                  lines =lines ,
-                  trial = trial )
-  traits<-c('line', traits)
-  q<-out1[,..traits]
-  class(out1)
-  
-  out<-aggregate(. ~ line, data=q, mean, na.rm=TRUE, na.action= NULL)
-  return(out)
-}
-
-
-
-
-
 out3<-line_means(expt=exp_odb,
                  field=fld_odb,
                  qual=qual_odb,
