@@ -66,10 +66,11 @@ do.gs<-function(geno=NULL, pheno=NULL, id=NULL, cross.valid=F, prog.valid = F, t
       # Rename the genotype matrix .. random effects
       Z_tp <- geno_tp
       Z_vp <- geno_vp
-      X <- model.matrix(~ 1, data = mf) # Create the X matrix, usefull for mutiple enviroments. 
-      K <- diag(ncol(Z_tp)) # Create the K matrix, the dimension is the number of markers , covariance between marekrs.
+      #X <- model.matrix(~ 1, data = mf) # Create the X matrix, usefull for mutiple enviroments. 
+      #K <- diag(ncol(Z_tp)) # Create the K matrix, the dimension is the number of markers , covariance between marekrs.
       # Fit the model
-      fit <- mixed.solve(y = y, Z = Z_tp, K = K, X = X)
+      #fit <- mixed.solve(y = y, Z = Z_tp, K = K, X = X)
+      fit <- mixed.solve(y = y, Z = Z_tp)
       u_hat <- setNames(fit$u, colnames(Z_tp))
       g_hat2 <- (Z_vp %*% u_hat) +as.vector(fit$beta) # Predict
       g_hat2<-as.data.frame(g_hat2)

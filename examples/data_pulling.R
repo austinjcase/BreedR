@@ -3,9 +3,9 @@
 library(BreedR)
 
 #####
-exp_odb<-read.csv("/Volumes/CFANS/AGRO/Oat_Lab/Oat_Database/ODB/expt_7dec17.csv", head=T,stringsAsFactors = F) # experiemntial description file
-fld_odb<-read.csv("/Volumes/CFANS/AGRO/Oat_Lab/Oat_Database/ODB/field_9jan18.csv", head=T, stringsAsFactors = F) # field phnoetype  file
-qual_odb<-read.csv("/Volumes/CFANS/AGRO/Oat_Lab/Oat_Database/ODB/post_harvest_9jan18.csv", head=T, stringsAsFactors = F) # quality phnoetype  file
+exp_odb<-read.csv("/Volumes/CFANS/AGRO/Oat_Lab/Oat_Database/ODB/expt_26apr18.csv", head=T,stringsAsFactors = F) # experiemntial description file
+fld_odb<-read.csv("/Volumes/CFANS/AGRO/Oat_Lab/Oat_Database/ODB/field_2may18.csv", head=T, stringsAsFactors = F) # field phnoetype  file
+qual_odb<-read.csv("/Volumes/CFANS/AGRO/Oat_Lab/Oat_Database/ODB/post_harvest_27apr18.csv", head=T, stringsAsFactors = F) # quality phnoetype  file
 #####
 
 # pulls out all data
@@ -30,3 +30,16 @@ deon_17_vt<-data.pull(expt =exp_odb, field= fld_odb, qual = qual_odb, year=2017,
 head(deon_17_vt)
 dim(deon_17_vt)
 unique(deon_17_vt$trial_name)
+
+
+## pull out data with respect to a number of liens
+multi_17_vt<-data.pull(expt =exp_odb, 
+                      field= fld_odb, 
+                      qual = qual_odb, 
+                      year=2017, 
+                      lines =c('DEON','SABER') ,
+                      trial ="vt" )
+
+
+
+
