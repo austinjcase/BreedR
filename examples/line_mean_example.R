@@ -1,4 +1,4 @@
-
+library(roxygen2)
 library(BreedR)
 
 #####
@@ -7,55 +7,61 @@ fld_odb<-read.csv("/Volumes/CFANS/AGRO/Oat_Lab/Oat_Database/ODB/field_2may18.csv
 qual_odb<-read.csv("/Volumes/CFANS/AGRO/Oat_Lab/Oat_Database/ODB/post_harvest_27apr18.csv", head=T, stringsAsFactors = F) # quality phnoetype  file
 #####
 
-
-?line_means()
-
 out2<-line_means(expt.impt=exp_odb,
                  field.impt=fld_odb,
                  qual.impt=qual_odb,
                  traits.impt=c('yield', 'test_weight', 'groat_glucan', 'cr_sev'),
                  year.impt=c(2017, 2016),
                  lines.impt=c('DEON','SABER'),
-                 trial.impt=c('vt','pyt'))
+                 trial.impt=c('vt','pyt'), 
+                 trial.drop.impt=c('vt_2017_stp'))
 
 out2
 
 
-out3<-line_means(expt=exp_odb,
-                 field=fld_odb,
-                 qual=qual_odb,
-                 traits=c('yield', 'test_weight', 'groat_glucan', 'cr_sev'),
-                 lines=c('DEON','SABER'),
-                 trial=c('vt','pyt'))
+# minimum inputs
+out2<-line_means(expt.impt=exp_odb,
+                 field.impt=fld_odb,
+                 qual.impt=qual_odb,
+                 traits.impt=c('yield', 'test_weight', 'groat_glucan', 'cr_sev'))
+out2
 
-out3
+# can select by line 
+out2<-line_means(expt.impt=exp_odb,
+                 field.impt=fld_odb,
+                 qual.impt=qual_odb,
+                 traits.impt=c('yield', 'test_weight', 'groat_glucan', 'cr_sev'),
+                 lines.impt=c('DEON','SABER'))
+out2
+
+# can select by line and trials
+out2<-line_means(expt.impt=exp_odb,
+                 field.impt=fld_odb,
+                 qual.impt=qual_odb,
+                 traits.impt=c('yield', 'test_weight', 'groat_glucan', 'cr_sev'),
+                 lines.impt=c('DEON','SABER'), 
+                 trial.impt=c('vt','pyt'))
+out2
+
+# can select by line and trials and can excude known trials of bad quality
+out2<-line_means(expt.impt=exp_odb,
+                 field.impt=fld_odb,
+                 qual.impt=qual_odb,
+                 traits.impt=c('yield', 'test_weight', 'groat_glucan', 'cr_sev'),
+                 lines.impt=c('DEON','SABER'), 
+                 trial.impt=c('vt','pyt'), 
+                 trial.drop.impt=c('vt_2017_stp'))
+out2
 
 
 
-out4<-line_means(expt=exp_odb,
-                 field=fld_odb,
-                 qual=qual_odb,
-                 traits=c('yield', 'test_weight', 'groat_glucan', 'cr_sev'),
-                 lines=c('DEON','SABER'))
 
-out4
+####
 
-
-
-out5<-line_means(expt=exp_odb,
-                 field=fld_odb,
-                 qual=qual_odb,
-                 traits=c('yield', 'test_weight', 'groat_glucan', 'cr_sev'))
-
-out5
-
-out6<-line_means(expt=exp_odb,
-                 field=fld_odb,
-                 qual=qual_odb,
-                 traits=c('yield', 'test_weight', 'groat_glucan', 'cr_sev'),
-                 trial=c('vt'))
-
-out6
-
+out2<-trl_means(expt.impt=exp_odb,
+                 field.impt=fld_odb,
+                 qual.impt=qual_odb,
+                 traits.impt=c('yield', 'test_weight', 'groat_glucan', 'cr_sev'))
+out2
 
 
