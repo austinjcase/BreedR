@@ -1,0 +1,9 @@
+## TO-DO
+
+1. Dependencies
+2. Load DB on package load
+3. Two-step analysis
+4. Line means summary stats (for T3)
+5. Tidy format
+6. Moving average (see two-step)
+7. Barley line attributes (2/6, H/N, S/W)
