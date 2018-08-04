@@ -5,9 +5,9 @@
 \title{make.iyt function}
 \usage{
 make.iyt(loc.to.use = NULL, loc.ids = NULL, trial.ids = NULL,
-  experiment = NULL, entries = NULL, plot.start = 1000,
-  number.blocks = 3, num.beds = NULL, year = NULL, zurn.seed = NULL,
-  checks = NULL, num.reps.chk = 2)
+  experiment = NULL, entries = NULL, plot.start = NULL,
+  number.blocks = NULL, num.beds = NULL, year = NULL, zurn.seed = NULL,
+  checks = NULL, num.reps.chk = NULL)
 }
 \arguments{
 \item{loc.to.use}{REQUIRED is the name of the location useing hte code naem ie "crk"}

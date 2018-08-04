@@ -31,13 +31,13 @@ make.iyt <- function(
   trial.ids=NULL,
   experiment=NULL,
   entries= NULL, 
-  plot.start=1000, 
-  number.blocks=3,
+  plot.start=NULL, 
+  number.blocks=NULL,
   num.beds=NULL,
   year=NULL, 
   zurn.seed=NULL, 
   checks =NULL, 
-  num.reps.chk=2){
+  num.reps.chk=NULL){
   #
   #pacakges needed
   library(BreedR)

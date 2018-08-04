@@ -6,7 +6,7 @@
 \usage{
 make.pyt(loc.to.use = NULL, loc.ids = NULL, trial.ids = NULL,
   experiment = NULL, entries = NULL, plot.start = 1000, year = NULL,
-  zurn.seed = NULL, checks = "pyt_chk.csv", chk2rep = 3, nBlk = 6,
+  zurn.seed = NULL, checks = NULL, chk2rep = NULL, nBlk = NULL,
   num.beds = NULL)
 }
 \arguments{

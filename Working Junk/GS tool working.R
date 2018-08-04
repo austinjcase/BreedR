@@ -12,6 +12,8 @@ library(BreedR)
 
 setwd("/Users/case0197/Documents/git_BreedR/exmple data")
 
+
+#Function for cross vlaidataion 
 #done outsied the function 
 
 ## laod the pheno data
@@ -23,31 +25,36 @@ geno<-fread("example.geno.csv",  head=T, stringsAsFactors = F)
 ## user specs
 pheno<-pheno # data frame of phnotypes
 geno<-geno # data frame of genotypes
-pca<-TRUE # should their be a PCA made, T/F
 impute<-TRUE # should the genotypes be imputed, T/F, must be true if doing GS
-cross<-TRUE # will this be gs with cross validatio of the tp, T/F called here as train
 cv.tp<- 80 # percent of TP to be in the trainig set 
 nrep<- 10 # number of reps of the cv run
-progney.vp<-TRUE # will there be progeny to use as validation population , called here a progney
-progney.pred<- FALSE # will thre be unknown progney to predict T/F called here as candidate
-pedigree<-TRUE # will predictions of pehnotypes based on pedigrees be made T/F
-
 ## 
 
 ## imputation of genotypes
 # can be skiped by user if selected
-
-## PCA 
-# can be skipped by user if selected
+names<-geno$line
+geno$line<-NULL
+geno<-as.matrix(geno)
+row.names(geno)<-names
+# done if user needs to impute geno data
+if(impute == T){
+geno2<-A.mat(geno,min.MAF=NULL,max.missing=NULL,
+             impute.method="EM",tol=0.02,shrink=FALSE, return.imputed=TRUE) # compture the a.matrix and a imputed data set 
+geno<-geno2$imputed
+}
+geno<-t(geno)
+geno[1:5,1:5]
 
 ## match genotypes to phenotypes
+head(pheno)
+
+# get list of traits
+traits<-unique(pheno$variable)
+traits
+
+
+
 # required 
 
 ## cross validation 
-# can be skiped by user if selected 
 
-## progney validation 
-# can be skipped by user if selected 
-
-## pedigree based prediction 
-# can be skipped by user if selected

@@ -32,9 +32,9 @@ make.pyt <- function(
   plot.start=1000,
   year=NULL,
   zurn.seed=NULL,
-  checks ="pyt_chk.csv",
-  chk2rep =3,
-  nBlk = 6,
+  checks =NULL,
+  chk2rep =NULL,
+  nBlk = NULL,
   num.beds=NULL){
   
   # from user inputs
@@ -51,7 +51,7 @@ make.pyt <- function(
   nBlk <- nBlk
   num.beds<-num.beds
   # checking the number of blocks
-  if(nBlk <= sqrt(dim(entries)[1])) {stop("suggested number of primary check and blocks should be sqrt(# of entries)")}
+  if(nBlk <= sqrt(dim(entries)[1])) {warning("suggested number of primary check and blocks should be sqrt(# of entries)")}
   #
   #checking if the checks are not a entry
   conflicts<-checks$line %in% entries$line
