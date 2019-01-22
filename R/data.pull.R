@@ -10,13 +10,11 @@
 #' @param years \code{character} years to select (optional).
 #' @param lines \code{character} lines to be select (optional).
 #' 
-#' @import sqldb
+#' @importFrom sqldf sqldf
 #' @importFrom data.table setDT
 #' 
 #' @export
 #' 
-
-
 data.pull <- function(expt, field, qual, trial = NULL, years = NULL, lines = NULL) {
   
   ## Create an expression to select
@@ -33,3 +31,9 @@ data.pull <- function(expt, field, qual, trial = NULL, years = NULL, lines = NUL
   select<-setDT(select)
   return(select)
 }
+
+#' #' @describeIn data_pull
+#' #' @export
+#' data.pull <- function(expt, field, qual, trial = NULL, years = NULL, lines = NULL) {
+#'   stop("This function is deprecated. Please use 'data_pull' instead.")
+#' }

@@ -1,12 +1,7 @@
 #' make.pyt function
 #' 
-#' This function allows you to make pyt  trials as a aibd type
-#' @description This is a wraper for FldTrial's design.aibd fucntion, sepcificly for maing a standard pyt type trial, 
-#' in a aibd design where within experiemnt fills are done with Checks , 
-#' one set of checks per block minimum 
-#' which may induce duplicaes witin blocks but makes for better planting files, 
-#' adds functions to allow export of planting order and maps, 
-#' it will also ad ZURN codes, and strips out uneeded extra columns, will also export a filed book type sheet for data collection. 
+#' DEPRECATED. Please use the make.rcbd function or make.aibd function.
+#' 
 #' @param loc.to.use REQUIRED is the name of the location useing hte code naem ie "crk"
 #' @param  loc.ids REQUIRED is a csv file with the first column being "loc.number"which is the zurn number for the location, the second column"location" is the full name of the locatoin, the third column has the codeded location name i.e. "crk" must match input to loc.to.use, the fourth column "beds" has the number of beds i.e. rows of that location
 #' @param  trial.ids REQUIRED is a csv file with teh first column "trial.number" has the trial id's fromt he zunr number,second column has the coded trail name i.e. "VT"
@@ -18,10 +13,9 @@
 #' @param checks REQUIRED a csv file i.e.(""pyt_chk.csv.csv") with one column "check" which has the list of the chekcs, first in order is pirmary and will be in each block
 #' @param  chk2rep OPTIONAL number of replicatoisn within the whole field of the secondary checks , defalut is 3
 #' @param  nBlk OPTIONALis the number of blocks to use i.e. 0 or 1 or 2 or 3. Defalut is 6
-#' @examples 
 #' @export
-#' make.pyt
-
+#' 
+#'
 
 make.pyt <- function(
   loc.to.use=NULL,
@@ -36,6 +30,10 @@ make.pyt <- function(
   chk2rep =NULL,
   nBlk = NULL,
   num.beds=NULL){
+  
+  
+  stop("This function is deprecated. Please use the 'make.aibd' or 'make.rcbd' functions instead.")
+  
   
   # from user inputs
   loc.to.use<-loc.to.use

@@ -2,7 +2,7 @@
 % Please edit documentation in R/line_mean_fun.R
 \name{line_means}
 \alias{line_means}
-\title{line_means function}
+\title{Compute line means}
 \usage{
 line_means(expt.impt = NULL, field.impt = NULL, qual.impt = NULL,
   traits.impt = NULL, year.impt = NULL, lines.impt = NULL,
@@ -24,9 +24,24 @@ line_means(expt.impt = NULL, field.impt = NULL, qual.impt = NULL,
 \item{trial.impt}{OPTIONAL \code{list} list of trials to  see OAT DATA BASE FOR CODE}
 
 \item{trial.drop.impt}{OPTIONAL \code{list} list of trials to drop see OAT DATA BASE FOR CODE}
+
+\item{expt}{\code{data.frame} of experient descriptions.}
+
+\item{field}{\code{data.frame} of field data.}
+
+\item{qual}{\code{data.frame} of post harvest data.}
+
+\item{trial}{\code{character} trial to select (optional).}
+
+\item{years}{\code{character} years to select (optional).}
+
+\item{lines}{\code{character} lines to be select (optional).
+
+
+This function allows line means to be gathered accross year and trials, gives simple means}
 }
 \description{
-This function allows line means to be gathered accross year and trials, gives simple means
+Compute line means
 }
 \examples{
 

@@ -6,7 +6,8 @@
 \usage{
 vt_analysis(exp_data = NULL, fld_data = NUL, qual_data = NULL,
   trial_type = NULL, yr1 = NULL, yr2 = NULL, yr3 = NULL,
-  trait_sel = NULL, exclude = NULL, expt_obj = NULL, cut_offs = NULL)
+  trait_sel = NULL, exclude = NULL, expt_obj = NULL,
+  cut_offs = NULL)
 }
 \arguments{
 \item{exp_data}{REQUIRED \code{data.frame} experiemtn description file from OAT DATA BASE}

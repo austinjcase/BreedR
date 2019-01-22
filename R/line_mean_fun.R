@@ -1,5 +1,13 @@
-#' line_means function
+#' Compute line means
 #'
+#' @param expt \code{data.frame} of experient descriptions.
+#' @param field \code{data.frame} of field data.
+#' @param qual \code{data.frame} of post harvest data.
+#' @param trial \code{character} trial to select (optional).
+#' @param years \code{character} years to select (optional).
+#' @param lines \code{character} lines to be select (optional).
+#' 
+#' 
 #' This function allows line means to be gathered accross year and trials, gives simple means
 #' @param expt.impt REQUIRED \code{data.frame} experiemtn description file from OAT DATA BASE
 #' @param field.impt REQUIRED \code{data.frame}  field phenotype file from OAT DATA BASE
