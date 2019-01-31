@@ -5,10 +5,10 @@
 \title{Generate a randomized complete block design}
 \usage{
 design.rcbd(enviro = format(Sys.Date(), "\%x"), exp.name = NULL,
-  nBlks = 2, entries = NULL, nEntries = NULL, chks = NULL, nChks = 0,
-  nChkReps = 1, nFieldRows = NULL, nFieldCols = NULL, plot.start = 1001,
-  fillWithEntry = T, fillWithChk = F, dup.list = NULL,
-  plot_id.template = NULL)
+  nBlks = 2, entries = NULL, nEntries = NULL, chks = NULL,
+  nChks = 0, nChkReps = 1, nFieldRows = NULL, nFieldCols = NULL,
+  plot.start = 1001, fillWithEntry = T, fillWithChk = F,
+  dup.list = NULL, plot_id.template = NULL)
 }
 \arguments{
 \item{enviro}{Optional \code{character string} describing the environment which the field trial will be grown in. Default is the current date and time.}

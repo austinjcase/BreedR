@@ -2,28 +2,24 @@
 % Please edit documentation in R/data.pull.R
 \name{data.pull}
 \alias{data.pull}
-\title{data.pull fnction}
+\title{Pull data from a database}
 \usage{
-data.pull(expt = NULL, field = NULL, qual = NULL, trial = NULL,
-  years = NULL, lines = NULL)
+data.pull(expt, field, qual, trial = NULL, years = NULL,
+  lines = NULL)
 }
 \arguments{
-\item{expt}{REQUIRED \code{data.frame} of experient descirptions in the OAT DATA BASE}
+\item{expt}{\code{data.frame} of experient descriptions.}
 
-\item{field}{REQUIRED \code{data.frame} of field data in the OAT DATA BASE}
+\item{field}{\code{data.frame} of field data.}
 
-\item{qual}{REQUIRED \code{data.frame} of post harvest data in the OAT DATA BASE}
+\item{qual}{\code{data.frame} of post harvest data.}
 
-\item{trial}{OPTIONAL\code{character string} a type of trial as described in the OAT DATA BASE}
+\item{trial}{\code{character} trial to select (optional).}
 
-\item{years}{OPTIONAL\code{character string} years to select data from}
+\item{years}{\code{character} years to select (optional).}
 
-\item{lines}{OPTIONAL\code{character string} lines to be selected}
+\item{lines}{\code{character} lines to be select (optional).}
 }
 \description{
-This function allows you to pull data from the oat data base or similar
+This function is used to pull data from one of the breeding databases
 }
-\examples{
-data.pull
-}
-\keyword{data.pull}

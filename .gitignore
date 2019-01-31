@@ -2,3 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
+inst/doc
+sandbox.R
+sandbox/*
+example_data/*
+examples/*

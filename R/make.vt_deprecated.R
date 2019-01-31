@@ -1,6 +1,7 @@
 #' make.vt function
 #' 
-#' This function allows you to make vt trials
+#' DEPRECATED. Please use the make.rcbd function or make.aibd function.
+#' 
 #' @description This is a wraper for FldTrial's design.rcbd fucntion, sepcificly for maing a standard VT type trial, in a RCB design where witin experiemnt fills are done with entries, Which may induce duplicaes witin blocks but makes for better planting files, adds functions to allow export of planting order and maps, it will also ad ZURN codes, and strips out uneeded extra columns, will also export a filed book type  sheet for data collection. 
 #' @param loc.to.use REQUIRED is the name of the location useing hte code naem ie "crk"
 #' @param  loc.ids REQUIRED is a csv file with the first column being "loc.number"which is the zurn number for the location, the second column"location" is the full name of the locatoin, the third column has the codeded location name i.e. "crk" must match input to loc.to.use, the fourth column "beds" has the number of beds i.e. rows of that location
@@ -28,9 +29,12 @@
 #' maps<-x$map.file
 #' files<-x$data.book
 #'
+#' @import plyr
+#' @import stringr
+#'
 #' @export
-#' make.vt
-
+#' 
+#' 
 make.vt <- function(
   loc.to.use=NULL,
   loc.ids=NULL, 
@@ -46,10 +50,9 @@ make.vt <- function(
   fill.chk =FALSE
   ){
   
-  #pacakges needed
-  library(BreedR)
-  library(plyr)
-  library(stringr)
+  stop("This function is deprecated. Please use the 'make.aibd' or 'make.rcbd' functions instead.")
+  
+  
   #
   
   # from user inputs

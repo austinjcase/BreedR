@@ -1,4 +1,4 @@
-#' do.gs function
+#' gs function
 #'
 #' This function allows you to pull data from the oat data base or similar
 #' @param geno REQUIRED \code{matrix} #matrix with geno x markers, marker names are first row and lines are first col. cell[1,1] is empty
@@ -12,7 +12,6 @@
 #' @param prog.valid OPTIONAL \code{T/F} # T/F to do prog validation, either prog.valid and/or cross.valid must be set to T 
 #' @param id OPTIONAL \code{data.frame} #data frame with fist col as line name, next is class where "prog" is the progney validation and "train" is the TP
 #' 
-#' @keywords do.gs
 #' @export
 #' 
 #' @examples
@@ -34,7 +33,7 @@
 #'
 
 
-do.gs<-function(geno=NULL, pheno=NULL, id=NULL, cross.valid=F, prog.valid = F, tp.size= NULL ,nrep=NULL, trait=NULL) {
+gs<-function(geno=NULL, pheno=NULL, id=NULL, cross.valid=F, prog.valid = F, tp.size= NULL ,nrep=NULL, trait=NULL) {
   
   ## input specs
   #########################

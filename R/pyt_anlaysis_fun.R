@@ -12,12 +12,12 @@
 #' @param trait REQUIRED \code{vector} trait to be used example "yield"
 #' @param drop.locs OPTIONAL \code{vector} vector of trial_names to drop eample "c("pyt_2017_stp" , "pyt_2017_btn")"
 #' @param check.to.top REQUIRED \code{vector} check to test if signficantly better than example "DEON"
-#'
-#' @keywords pyt_analysis
+#' 
+#' @import dplyr
+#' @import lme4
+#' 
 #' @export
-#' @examples
-#'pyt_analysis
-
+#' 
 pyt_analysis <- function (exp_data=NULL,fld_data=NULL, qual_data=NULL,
                          trls= NULL,yrs=NULL,
                          trait=NULL,drop.locs=NULL,
@@ -32,13 +32,6 @@ pyt_analysis <- function (exp_data=NULL,fld_data=NULL, qual_data=NULL,
   trait=trait
   drop.locs=drop.locs
   check.to.top=check.to.top
-
-  ### required pacakges
-  library(BreedR)
-  library(dplyr)
-  library(plyr)
-  library(lme4)
-  ###
 
   #pull out data by the selection
   #####
