@@ -55,7 +55,8 @@
 #'
 
 
-design.rcbd <- function(enviro=format(Sys.Date(), "%x"), exp.name=NULL, nBlks=2, entries= NULL, nEntries= NULL, chks=NULL, nChks=0, nChkReps=1, nFieldRows=NULL, nFieldCols=NULL, plot.start=1001, fillWithEntry=T, fillWithChk=F, dup.list=NULL, plot_id.template=NULL){
+design.rcbd <- function(enviro=format(Sys.Date(), "%x"), exp.name=NULL, nBlks=2, entries= NULL, nEntries= NULL, chks=NULL, nChks=0, nChkReps=1, nFieldRows=NULL, 
+                        nFieldCols=NULL, plot.start=1001, fillWithEntry=T, fillWithChk=F, dup.list=NULL, plot_id.template=NULL){
 
   ## QC
   if(is.null(entries) & is.null(nEntries)) stop("Must provide an entry list (entries=) OR the number of entries desired (nEntries=).")

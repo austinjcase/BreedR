@@ -28,8 +28,8 @@
 #' @export
 #' 
 #' 
-make.rcbd <- function(location, location.id, trial, trial.id, entries, plot.start = 1001, number.blocks = 3, number.rows, year, crop.id, 
-                      checks, number.reps.chk = 1, fill.with = c("check", "entry", "filler"), write.excel = FALSE) {
+make.rcbd <- function(location, location.id, trial, trial.id, entries, checks = NULL, plot.start = 1001, number.blocks = 3, number.rows, year, crop.id, 
+                      number.reps.chk = 1, fill.with = c("check", "entry", "filler"), write.excel = FALSE) {
   
   ## Check use inputs
   location <- as.character(location)
@@ -51,22 +51,31 @@ make.rcbd <- function(location, location.id, trial, trial.id, entries, plot.star
   ## Files to read in
   # Check extensions
   if (!str_detect(entries, ".csv")) stop ("The 'entries' file does not have the .csv extension.")
-  if (!str_detect(checks, ".csv")) stop ("The 'checks' file does not have the .csv extension.")
-  
   entries_df <- read.csv(entries, stringsAsFactors = FALSE)
-  checks_df <- read.csv(checks, stringsAsFactors = FALSE)
 
-  
-  # Check if any checks appear in the entry list
-  conflict.chk <- intersect(checks_df[,1], entries_df[,1])
-  
-  ## Entries are the individuals in the entries file, minus any overlap with the checks
-  entries <- setdiff(x = entries_df[,1], y = checks_df[,1])
-  # Checks are lines in the check file
-  checks <- checks_df[,1]
-  
-  
+  ## For an RCBD, you do not necessarily need checks, but you do need entries. Check to make sure it is a file path
+  if (!is.null(checks)) {
     
+    if (!str_detect(checks, ".csv")) stop ("The 'checks' file does not have the .csv extension.")
+    checks_df <- read.csv(checks, stringsAsFactors = FALSE)
+    
+    # Check if any checks appear in the entry list
+    conflict.chk <- intersect(checks_df[,1], entries_df[,1])
+    
+    ## Entries are the individuals in the entries file, minus any overlap with the checks
+    entries <- setdiff(x = entries_df[,1], y = checks_df[,1])
+    # Checks are lines in the check file
+    checks <- checks_df[,1]
+    
+  } else {
+    entries <- entries_df[,1]
+    
+    ## Fill.with == check cannot occur if you do not have checks
+    if (fill.with == "check") stop ("You did not provide a file with checks. Therefore, checks cannot be used to fill extra plots.")
+    
+  }
+  
+
   ###
   # Fill with options
   fillWithEntry <- fill.with == "entry"
@@ -74,7 +83,7 @@ make.rcbd <- function(location, location.id, trial, trial.id, entries, plot.star
   
   ###
   rcbd <- design.rcbd(enviro = location, exp.name = trial, chks = checks, nChkReps = number.reps.chk,
-                      nBlks = number.blocks, entries = entries, nChks = 0, nFieldRows = number.rows, 
+                      nBlks = number.blocks, entries = entries, nFieldRows = number.rows, 
                       plot.start = plot.start, fillWithEntry = fillWithEntry, fillWithChk = fillWithChk)
   
   

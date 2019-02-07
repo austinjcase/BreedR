@@ -5,10 +5,10 @@
 \alias{make.aibd}
 \title{Create experimental design randomizations}
 \usage{
-make.rcbd(location, location.id, trial, trial.id, entries,
+make.rcbd(location, location.id, trial, trial.id, entries, checks = NULL,
   plot.start = 1001, number.blocks = 3, number.rows, year, crop.id,
-  checks, number.reps.chk = 1, fill.with = c("check", "entry",
-  "filler"), write.excel = FALSE)
+  number.reps.chk = 1, fill.with = c("check", "entry", "filler"),
+  write.excel = FALSE)
 
 make.aibd(location, location.id, trial, trial.id, entries,
   plot.start = 1, minimum.blocks = 6, number.rows, year, crop.id,
@@ -26,6 +26,8 @@ make.aibd(location, location.id, trial, trial.id, entries,
 
 \item{entries}{A csv file i.e.("18 VT 9jan18.csv") with one column "line" which has the list of the entries for the VT}
 
+\item{checks}{A csv file i.e.("18 VT 9jan18.csv") with one column "check" which has the list of the checks.}
+
 \item{plot.start}{The number of the first plot i.e. 0 or 1 or 1000 which ever, Default is 1001}
 
 \item{number.blocks}{The number of blocks to use i.e. 0 or 1 or 2 or 3. Defalut is 3. For an RCBD, this is also the number of replications.}
@@ -35,8 +37,6 @@ make.aibd(location, location.id, trial, trial.id, entries,
 \item{year}{The year of the planting.}
 
 \item{crop.id}{The zurn code for the crop i.e. 5 for oat or 3 for barley}
-
-\item{checks}{A csv file i.e.("18 VT 9jan18.csv") with one column "check" which has the list of the checks.}
 
 \item{number.reps.chk}{The number of check replications. Default is 1.}
 
