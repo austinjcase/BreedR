@@ -1,0 +1,37 @@
+---
+title: "Example Workflow Using the `BreedR` Package"
+author: "Jeff Neyhart"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+toc: true
+---
+
+# Introduction
+
+Welcome to the `BreedR` package. This package is designed to provide functions for manipulating and analyzing data in the
+barley and oat breeding programs at the University of Minnesota. 
+
+This vignette will provide some example workflows and outline the capabilities of this package. It is divided into three 
+sections: **Designing Trials**, **Writing to the Database**, and **Analyzing Data**.
+
+First, load the package using the standard R notation:
+
+```{r load}
+library(BreedR)
+```
+
+# Designing Trials
+
+
+# Writing to the Database
+
+
+# Analyzing Data
+
+
+
+

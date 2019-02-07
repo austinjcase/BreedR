@@ -29,7 +29,3 @@ output is a tall file with the trait values from each location given as adjusted
 values of t0.05 are an LSD value for if they test line gives a "HIGHER" trait value than the selected line to beat
 where 1= higher than check at alpha 0.05. Where State is the overall average of all locations
 }
-\examples{
-pyt_analysis
-}
-\keyword{pyt_analysis}

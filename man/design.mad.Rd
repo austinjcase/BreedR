@@ -8,7 +8,8 @@ design.mad(enviro = format(Sys.Date(), "\%x"), exp.name = NULL,
   entries = NULL, nEntries = NULL, chks = NULL, nChk2 = NULL,
   nFieldRows = NULL, nFieldCols = NULL, nChk2.min = 3,
   plot.start = 1001, plot_id.template = NULL, minPerChks = 0.1,
-  maxPerChks = 0.5, fillWithEntry = T, dup.list = NULL, fillWithChk = F)
+  maxPerChks = 0.5, fillWithEntry = T, dup.list = NULL,
+  fillWithChk = F)
 }
 \arguments{
 \item{enviro}{Optional \code{character string} describing the environment which the field trial will be grown in. Default is the current date and time.}
