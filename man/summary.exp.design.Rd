@@ -2,13 +2,23 @@
 % Please edit documentation in R/make_designs.R
 \name{summary.exp.design}
 \alias{summary.exp.design}
+\alias{print.exp.design}
+\alias{plot.exp.design}
 \title{Summarize an experimental design object}
 \usage{
-\method{summary}{design}(x)
+\method{summary}{exp.design}(x)
+
+\method{print}{exp.design}(x)
+
+\method{plot}{exp.design}(x)
 }
 \arguments{
 \item{x}{The output from an experimental design function, such as make.rcbd or make.aibd.}
 }
 \description{
+Summarize an experimental design object
+
+Summarize an experimental design object
+
 Summarize an experimental design object
 }

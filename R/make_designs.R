@@ -1,21 +1,26 @@
 #' Create experimental design randomizations
 #' 
+#' "line" as a column name
+#' Entries in checks
+#' number.blocks if blank, it will calculate it
+#' single file for entries/checks, with a space between entries/checks
+#' 
 #' @description 
 #' These functions create randomized complete block designed (RCBD) or augmented incomplete block
 #' designed (AIBD) experiments.
 #' 
-#' @param loc.to.use The name of the location, writting as a three-letter (or more) code.
-#' @param loc.id The two-digit zurn number for the location.
+#' @param location The name of the location, writting as a three-letter (or more) code.
+#' @param location.id The two-digit zurn number for the location.
 #' @param trial The name of the trial.
 #' @param trial.id The two-digit zurn number for trial.
-#' @param num.beds The number of beds / field rows.
+#' @param number.rows The number of beds / field rows.
 #' @param plot.start The number of the first plot i.e. 0 or 1 or 1000 which ever, Default is 1001
-#' @param number.blocks The number of blocks to use i.e. 0 or 1 or 2 or 3. Defalut is 3
+#' @param number.blocks The number of blocks to use i.e. 0 or 1 or 2 or 3. Defalut is 3. For an RCBD, this is also the number of replications.
 #' @param year The year of the planting.
-#' @param zurn.seed The zurn code for the crop i.e. 5 for oat or 3 for barley 
+#' @param crop.id The zurn code for the crop i.e. 5 for oat or 3 for barley 
 #' @param entries A csv file i.e.("18 VT 9jan18.csv") with one column "line" which has the list of the entries for the VT
 #' @param checks A csv file i.e.("18 VT 9jan18.csv") with one column "check" which has the list of the checks.
-#' @param num.reps.chk The number of check replications. Default is 1.
+#' @param number.reps.chk The number of check replications. Default is 1.
 #' @param fill.with A character determining what should fill empty plots. If "check," plots will be filled with checks; if "entry", plots will
 #' be filled with entries; if "filler", plots will be filled with "FILLER"; alternatively, a custom string can be supplied (i.e. "RASMUSSEN").
 #' @param write.excel Should the design and map files be exported to an .xlsx file? The name of the file will be "trial_year_loc_rand.xlsx"
@@ -28,21 +33,21 @@
 #' @export
 #' 
 #' 
-make.rcbd <- function(loc.to.use, loc.id, trial, trial.id, entries, plot.start = 1001, number.blocks = 3, num.beds, year, zurn.seed, 
-                      checks, num.reps.chk = 1, fill.with = c("check", "entry", "filler"), write.excel = FALSE) {
+make.rcbd <- function(location, location.id, trial, trial.id, entries, plot.start = 1001, number.blocks = 3, number.rows, year, crop.id, 
+                      checks, number.reps.chk = 1, fill.with = c("check", "entry", "filler"), write.excel = FALSE) {
   
   ## Check use inputs
-  loc.to.use <- as.character(loc.to.use)
-  loc.id <- formatC(x = as.integer(loc.id), width = 2, flag = "0")
+  location <- as.character(location)
+  location.id <- formatC(x = as.integer(location.id), width = 2, flag = "0")
   trial <- as.character(trial)
   trial.id <- formatC(x = as.integer(trial.id), width = 2, flag = "0")
   plot.start <- as.integer(plot.start)
   if (!nchar(plot.start) == 4) stop("'plot.start' must be 4 digits.")
   number.blocks <- as.integer(number.blocks)
   year <- as.integer(year)
-  zurn.seed <- as.integer(zurn.seed)
-  num.beds <- as.integer(num.beds)
-  num.reps.chk <- as.integer(num.reps.chk)
+  crop.id <- as.integer(crop.id)
+  number.rows <- as.integer(number.rows)
+  number.reps.chk <- as.integer(number.reps.chk)
   
   ## Fill.with must be length 1
   if (length(fill.with) > 1) stop("'fill.with' must be a character vector of length 1.")
@@ -54,15 +59,18 @@ make.rcbd <- function(loc.to.use, loc.id, trial, trial.id, entries, plot.start =
   if (!str_detect(checks, ".csv")) stop ("The 'checks' file does not have the .csv extension.")
   
   entries_df <- read.csv(entries, stringsAsFactors = FALSE)
-  if (!all(c("line") %in% names(entries_df))) stop("Columns in 'entries' should be 'line'.")
   checks_df <- read.csv(checks, stringsAsFactors = FALSE)
-  if (!all(c("line") %in% names(checks_df))) stop("Columns in 'checks' should be 'line'.")
 
   
-  # Checking if the checks are not a entry
-  conflict.chk <- intersect(checks_df$line, entries_df$line)
-  if(length(conflict.chk) > 0) stop(paste0("Checks must not appear in the entry list, suggest add '_chk' to ", conflict.chk))
-  #
+  # Check if any checks appear in the entry list
+  conflict.chk <- intersect(checks_df[,1], entries_df[,1])
+  
+  ## Entries are the individuals in the entries file, minus any overlap with the checks
+  entries <- setdiff(x = entries_df[,1], y = checks_df[,1])
+  # Checks are lines in the check file
+  checks <- checks_df[,1]
+  
+  
     
   ###
   # Fill with options
@@ -70,8 +78,8 @@ make.rcbd <- function(loc.to.use, loc.id, trial, trial.id, entries, plot.start =
   fillWithChk <- fill.with == "check"
   
   ###
-  rcbd <- design.rcbd(enviro = loc.to.use, exp.name = trial, chks = checks_df$line, nChkReps = num.reps.chk,
-                      nBlks = number.blocks, entries = entries_df$line, nChks = 0, nFieldRows = num.beds, 
+  rcbd <- design.rcbd(enviro = location, exp.name = trial, chks = checks, nChkReps = number.reps.chk,
+                      nBlks = number.blocks, entries = entries, nChks = 0, nFieldRows = number.rows, 
                       plot.start = plot.start, fillWithEntry = fillWithEntry, fillWithChk = fillWithChk)
   
   
@@ -82,14 +90,17 @@ make.rcbd <- function(loc.to.use, loc.id, trial, trial.id, entries, plot.start =
 
   # Make the data file
   design <- rcbd$rcbd.dgn
+  # Sort on plot
+  design <- design[order(design$plot), , drop = FALSE]
+  
   design$environment <- as.character(design$environment)
   # Add the location code
-  design$loc_code <- loc.id
+  design$loc_code <- location.id
   # Add the experiment code and experiment
   design$trial <- trial
   design$trial_code <- trial.id
   # Add the zurn code
-  design$barcode <- paste0(zurn.seed, loc.id, trial.id, design$replication, design$plot)
+  design$barcode <- paste0(crop.id, location.id, trial.id, design$replication, design$plot)
   design$barcode[design$line_name == "FILLER"] <- NA 
   
   ## If the line_name is FILLER, and fill.with is not check, entry, or fill, use the fill with
@@ -100,27 +111,30 @@ make.rcbd <- function(loc.to.use, loc.id, trial, trial.id, entries, plot.start =
   # Make a planting order
   design1 <- subset(design, , c("row", "column", "plant_order"))
   plant_order <- reshape(data = design1, idvar = "row", timevar = "column", direction = "wide")
-  colnames(plant_order) <- c("row/col", seq(ncol(plant_order) - 1))
-  
-  
-  ## Combine layouts and order to a map
-  plot.lay1 <- plot.lay[-nrow(plot.lay),]; colnames(plot.lay1) <- c("row/col", seq(ncol(plot.lay1) - 1))
-  rep.lay1 <- rep.lay[-nrow(rep.lay),]; colnames(rep.lay1) <- c("row/col", seq(ncol(rep.lay1) - 1))
-  check.lay1 <- check.lay[-nrow(check.lay),]; colnames(check.lay1) <- c("row/col", seq(ncol(check.lay1) - 1))
+  ## Flip
+  plant_order <- plant_order[rev(seq(nrow(plant_order))),,drop = FALSE]
+  ## Add a bottom row
+  plant_order <- rbind(plant_order, c("", seq(ncol(plant_order) - 1)))
+  # Remove row and column names
+  row.names(plant_order) <- NULL; colnames(plant_order) <- colnames(rep.lay)
 
+
+  # ## Combine layouts and order to a map
+  # rep.lay1 <- rep.lay[-nrow(rep.lay),]; colnames(rep.lay1) <- c("row/col", seq(ncol(rep.lay1) - 1))
+  # check.lay1 <- check.lay[-nrow(check.lay),]; colnames(check.lay1) <- c("row/col", seq(ncol(check.lay1) - 1))
+
+  
   ## Number of columns
-  n_col <- ncol(plot.lay1)
-  # Column names
-  colnm <- colnames(plot.lay1)
+  n_col <- ncol(plot.lay)
   
   
   ## Combine
-  plot.map1 <- rbind(c("Plot Layout", rep(NA, n_col - 1)), colnm, plot.lay1, NA, c("Rep Layout", rep(NA, n_col - 1)), colnm, rep.lay1,
-                     NA, c("Check Layout", rep(NA, n_col - 1)), colnm, check.lay1, NA, c("Plant Order", rep(NA, n_col - 1)), colnm, plant_order)
+  plot.map1 <- rbind(c("Plot Layout", rep(NA, n_col - 1)), plot.lay, NA, c("Rep Layout", rep(NA, n_col - 1)), rep.lay,
+                     NA, c("Check Layout", rep(NA, n_col - 1)), check.lay, NA, c("Plant Order", rep(NA, n_col - 1)), plant_order)
   colnames(plot.map1) <- NULL
   
   # Edit trial 
-  design$trial <- paste(trial, year, loc.to.use, sep = "_")
+  design$trial <- paste(trial, year, location, sep = "_")
   # Edit line name
   design$line_name <- toupper(design$line_name)
   
@@ -128,7 +142,7 @@ make.rcbd <- function(loc.to.use, loc.id, trial, trial.id, entries, plot.start =
   design_toprint <- design[,c("trial", "line_name", "plot", "replication", "row", "column", "line_code", "entry", "plant_order", "barcode")]
   
   ## Create a list of maps
-  map_list <- list(plot.layout = plot.lay1, rep.layout = rep.lay1, check.layout = check.lay1, plant.order = plant_order)
+  map_list <- list(plot.layout = plot.lay, rep.layout = rep.lay, check.layout = check.lay, plant.order = plant_order)
   
   ## Output an excel file, if desired
   if (write.excel) {
@@ -153,7 +167,7 @@ make.rcbd <- function(loc.to.use, loc.id, trial, trial.id, entries, plot.start =
 
 #' Create experimental design randomizations
 #' 
-#' @param number.blocks The number of incomplete blocks. Defalut is 6
+#' @param minimum.blocks The minimum number of incomplete blocks. Defalut is 6
 #' @param chk2rep The number of replications of the secondary check. Default is 3.
 #' @rdname make.rcbd
 #' 
@@ -166,20 +180,20 @@ make.rcbd <- function(loc.to.use, loc.id, trial, trial.id, entries, plot.start =
 #' @export
 #' 
 #' 
-make.aibd <- function(loc.to.use, loc.id, trial, trial.id, entries, plot.start = 1, number.blocks = 6, num.beds, year, zurn.seed, 
+make.aibd <- function(location, location.id, trial, trial.id, entries, plot.start = 1, minimum.blocks = 6, number.rows, year, crop.id, 
                       checks, chk2rep = 3, fill.with = c("check", "entry", "filler"), write.excel = FALSE) {
   
   ## Check use inputs
-  loc.to.use <- as.character(loc.to.use)
-  loc.id <- formatC(x = as.integer(loc.id), width = 2, flag = "0")
+  location <- as.character(location)
+  location.id <- formatC(x = as.integer(location.id), width = 2, flag = "0")
   trial <- as.character(trial)
   trial.id <- formatC(x = as.integer(trial.id), width = 2, flag = "0")
   plot.start <- as.integer(plot.start)
   if (!nchar(plot.start) == 4) stop("'plot.start' must be 4 digits.")
-  number.blocks <- as.integer(number.blocks)
+  minimum.blocks <- as.integer(minimum.blocks)
   year <- as.integer(year)
-  zurn.seed <- as.integer(zurn.seed)
-  num.beds <- as.integer(num.beds)
+  crop.id <- as.integer(crop.id)
+  number.rows <- as.integer(number.rows)
   chk2rep <- as.integer(chk2rep)
   
   ## Fill.with must be length 1
@@ -192,24 +206,27 @@ make.aibd <- function(loc.to.use, loc.id, trial, trial.id, entries, plot.start =
   if (!str_detect(checks, ".csv")) stop ("The 'checks' file does not have the .csv extension.")
   
   entries_df <- read.csv(entries, stringsAsFactors = FALSE)
-  if (!all(c("line") %in% names(entries_df))) stop("Columns in 'entries' should be 'line'.")
   checks_df <- read.csv(checks, stringsAsFactors = FALSE)
-  if (!all(c("line") %in% names(checks_df))) stop("Columns in 'checks' should be 'line'.")
+
+  
+  # Check if any checks appear in the entry list
+  conflict.chk <- intersect(checks_df[,1], entries_df[,1])
+  
+  ## Entries are the individuals in the entries file, minus any overlap with the checks
+  entries <- setdiff(x = entries_df[,1], y = checks_df[,1])
+  # Checks are lines in the check file
+  checks <- checks_df[,1]
   
   
-  # Checking if the checks are not a entry
-  conflict.chk <- intersect(checks_df$line, entries_df$line)
-  if(length(conflict.chk) > 0) stop(paste0("Checks must not appear in the entry list, suggest add '_chk' to ", conflict.chk))
-  #
   
   ###
   # Fill with options
   fillWithEntry <- fill.with == "entry"
   fillWithChk <- fill.with == "check"
-  
+
   ###
-  aibd <- design.aibd(enviro = loc.to.use, exp.name = trial, chks = checks_df$line, nChk2.min = chk2rep,
-                      nBlks = number.blocks, entries = entries_df$line, nFieldRows = num.beds, 
+  aibd <- design.aibd(enviro = location, exp.name = trial, chks = checks, nChk2.min = chk2rep,
+                      entries = entries, nFieldRows = number.rows, nBlks.min = minimum.blocks,
                       plot.start = plot.start, fillWithEntry = fillWithEntry, fillWithChk = fillWithChk)
   
   
@@ -219,15 +236,20 @@ make.aibd <- function(loc.to.use, loc.id, trial, trial.id, entries, plot.start =
   check.lay <- as.data.frame(aibd$check.layout, stringsAsFactors = FALSE)
   
   # Make the data file
+  # Make the data file
   design <- aibd$aibd.dgn
+  # Sort on plot
+  design <- design[order(design$plot), , drop = FALSE]
+  
+  
   design$environment <- as.character(design$environment)
   # Add the location code
-  design$loc_code <- loc.id
+  design$loc_code <- location.id
   # Add the experiment code and experiment
   design$trial <- trial
   design$trial_code <- trial.id
   # Add the zurn code
-  design$barcode <- paste0(zurn.seed, loc.id, trial.id, design$replication, design$plot)
+  design$barcode <- paste0(crop.id, location.id, trial.id, design$replication, design$plot)
   design$barcode[design$line_name == "FILLER"] <- NA 
   
   ## If the line_name is FILLER, and fill.with is not check, entry, or fill, use the fill with
@@ -235,30 +257,34 @@ make.aibd <- function(loc.to.use, loc.id, trial, trial.id, entries, plot.start =
     design$line_name[design$line_name == "FILLER"] <- fill.with
   }
   
+  
   # Make a planting order
   design1 <- subset(design, , c("row", "column", "plant_order"))
   plant_order <- reshape(data = design1, idvar = "row", timevar = "column", direction = "wide")
-  colnames(plant_order) <- c("row/col", seq(ncol(plant_order) - 1))
+  ## Flip
+  plant_order <- plant_order[rev(seq(nrow(plant_order))),,drop = FALSE]
+  ## Add a bottom row
+  plant_order <- rbind(plant_order, c("", seq(ncol(plant_order) - 1)))
+  # Remove row and column names
+  row.names(plant_order) <- NULL; colnames(plant_order) <- colnames(blk.lay)
   
   
-  ## Combine layouts and order to a map
-  plot.lay1 <- plot.lay[-nrow(plot.lay),]; colnames(plot.lay1) <- c("row/col", seq(ncol(plot.lay1) - 1))
-  blk.lay1 <- blk.lay[-nrow(blk.lay),]; colnames(blk.lay1) <- c("row/col", seq(ncol(blk.lay1) - 1))
-  check.lay1 <- check.lay[-nrow(check.lay),]; colnames(check.lay1) <- c("row/col", seq(ncol(check.lay1) - 1))
+  # ## Combine layouts and order to a map
+  # rep.lay1 <- rep.lay[-nrow(rep.lay),]; colnames(rep.lay1) <- c("row/col", seq(ncol(rep.lay1) - 1))
+  # check.lay1 <- check.lay[-nrow(check.lay),]; colnames(check.lay1) <- c("row/col", seq(ncol(check.lay1) - 1))
+  
   
   ## Number of columns
-  n_col <- ncol(plot.lay1)
-  # Column names
-  colnm <- colnames(plot.lay1)
+  n_col <- ncol(plot.lay)
   
   
   ## Combine
-  plot.map1 <- rbind(c("Plot Layout", rep(NA, n_col - 1)), colnm, plot.lay1, NA, c("Rep Layout", rep(NA, n_col - 1)), colnm, blk.lay1,
-                     NA, c("Check Layout", rep(NA, n_col - 1)), colnm, check.lay1, NA, c("Plant Order", rep(NA, n_col - 1)), colnm, plant_order)
+  plot.map1 <- rbind(c("Plot Layout", rep(NA, n_col - 1)), plot.lay, NA, c("Rep Layout", rep(NA, n_col - 1)), blk.lay,
+                     NA, c("Check Layout", rep(NA, n_col - 1)), check.lay, NA, c("Plant Order", rep(NA, n_col - 1)), plant_order)
   colnames(plot.map1) <- NULL
   
   # Edit trial 
-  design$trial <- paste(trial, year, loc.to.use, sep = "_")
+  design$trial <- paste(trial, year, location, sep = "_")
   # Edit line name
   design$line_name <- toupper(design$line_name)
   
@@ -266,7 +292,7 @@ make.aibd <- function(loc.to.use, loc.id, trial, trial.id, entries, plot.start =
   design_toprint <- design[,c("trial", "line_name", "plot", "blk", "row", "column", "row_blk", "col_blk", "line_code", "entry", "plant_order", "barcode")]
   
   ## Create a list of maps
-  map_list <- list(plot.layout = plot.lay1, rep.layout = blk.lay1, check.layout = check.lay1, plant.order = plant_order)
+  map_list <- list(plot.layout = plot.lay, rep.layout = blk.lay, check.layout = check.lay, plant.order = plant_order)
   
   ## Output an excel file, if desired
   if (write.excel) {
@@ -292,7 +318,9 @@ make.aibd <- function(loc.to.use, loc.id, trial, trial.id, entries, plot.start =
 #' 
 #' @param x The output from an experimental design function, such as make.rcbd or make.aibd.
 #' 
-#' @method summary design
+#' @method summary exp.design
+#' 
+#' @export
 #' 
 summary.exp.design <- function(x) {
   
@@ -302,14 +330,15 @@ summary.exp.design <- function(x) {
   rows <- max(x$data.book$row)
   cols <- max(x$data.book$column)
 
-  n_entries <- sum(x$data.book$line_code == 0)
-  n_check <- sum(x$data.book$line_code != 0)
+  n_entries <- sum(x$data.book$line_code == 0, na.rm = TRUE)
+  n_check <- sum(x$data.book$line_code != 0, na.rm = TRUE)
+  n_fillers <- sum(is.na(x$data.book$line_code))
   
   # Blocks or reps
   if ("rcbd" %in% class(x)) {
     reps <- length(unique(x$data.book$replication))
   } else if ("aibd" %in% class(x)) {
-    reps <- length(unique(x$data.book$blocks))
+    reps <- length(unique(x$data.book$blk))
   }
   
   ## Print
@@ -322,23 +351,28 @@ summary.exp.design <- function(x) {
   
   cat("\n\nNumber of entries: ", n_entries)
   cat("\nNumber of checks: ", n_check)
+  cat("\nNumber of filled plots: ", n_fillers)
   cat("\nNumber of reps/blocks: ", reps)
 
 }
 
 #' Summarize an experimental design object
 #' 
-#' @rdname summary.design
+#' @rdname summary.exp.design
 #' 
-#' @method summary design
+#' @method print exp.design
+#' 
+#' @export
 #' 
 print.exp.design <- function(x) summary(x)
 
 #' Summarize an experimental design object
 #' 
-#' @rdname summary.design
+#' @rdname summary.exp.design
 #' 
-#' @method summary design
+#' @method plot exp.design
+#' 
+#' @export
 #' 
 plot.exp.design <- function(x) {
   
@@ -349,7 +383,7 @@ plot.exp.design <- function(x) {
   
   # For each map, convert to matrix
   x_maps1 <- lapply(X = x_maps[-1], FUN = function(m) {
-    m1 <- apply(X = as.matrix(m)[,-1], MARGIN = 2, FUN = as.numeric)
+    m1 <- apply(X = as.matrix(m)[-nrow(m),-1], MARGIN = 2, FUN = as.numeric)
     row.names(m1) <- seq(nrow(m1))
     m1
   })
