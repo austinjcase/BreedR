@@ -53,12 +53,6 @@ be filled with entries; if "filler", plots will be filled with "FILLER"; alterna
 These functions create randomized complete block designed (RCBD) or augmented incomplete block
 designed (AIBD) experiments.
 }
-\details{
-"line" as a column name
-Entries in checks
-number.blocks if blank, it will calculate it
-single file for entries/checks, with a space between entries/checks
-}
 \examples{
 
 
