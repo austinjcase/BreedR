@@ -22,7 +22,6 @@
 #' 
 #' @examples 
 #' 
-#' @import stringr
 #' @import writexl
 #' 
 #' @export
@@ -50,13 +49,13 @@ make.rcbd <- function(location, location.id, trial, trial.id, entries, checks = 
   
   ## Files to read in
   # Check extensions
-  if (!str_detect(entries, ".csv")) stop ("The 'entries' file does not have the .csv extension.")
+  if (!grepl(".csv", entries)) stop ("The 'entries' file does not have the .csv extension.")
   entries_df <- read.csv(entries, stringsAsFactors = FALSE)
 
   ## For an RCBD, you do not necessarily need checks, but you do need entries. Check to make sure it is a file path
   if (!is.null(checks)) {
     
-    if (!str_detect(checks, ".csv")) stop ("The 'checks' file does not have the .csv extension.")
+    if (!grepl(".csv", checks)) stop ("The 'checks' file does not have the .csv extension.")
     checks_df <- read.csv(checks, stringsAsFactors = FALSE)
     
     # Check if any checks appear in the entry list
@@ -145,20 +144,26 @@ make.rcbd <- function(location, location.id, trial, trial.id, entries, checks = 
   # Keep relevant columns
   design_toprint <- design[,c("trial", "line_name", "plot", "replication", "row", "column", "line_code", "entry", "plant_order", "barcode")]
   
+  ## Create a data.frame of each line with the corresponding plots of each rep
+  rep_toprint <- design[,c("line_name", "replication", "plot")]
+  rep_toprint$replication <- paste0("rep", rep_toprint$replication)
+  rep_toprint_wide <- reshape(data = rep_toprint, direction = "wide", idvar = "line_name", timevar = "replication", v.names = "plot")
+  
+  
   ## Create a list of maps
   map_list <- list(plot.layout = plot.lay, rep.layout = rep.lay, check.layout = check.lay, plant.order = plant_order)
   
   ## Output an excel file, if desired
   if (write.excel) {
     filename <- paste0(design$trial[1], "_rand.xlsx")
-    write_xlsx(x = list(data.book = design_toprint, map.file = plot.map1), path = filename, col_names = TRUE)
+    write_xlsx(x = list(data.book = design_toprint, map.file = plot.map1, rep.book = rep_toprint_wide), path = filename, col_names = TRUE)
     
     ## Create a list
-    list_to_print <- list(data.book = design_toprint, map.file = map_list)
+    list_to_print <- list(data.book = design_toprint, map.file = map_list, rep.book = rep_toprint_wide)
     
   } else {
     ## Include the maps to print in the list
-    list_to_print <- list(data.book = design_toprint, map.file = map_list, map.to.print = plot.map1) 
+    list_to_print <- list(data.book = design_toprint, map.file = map_list, map.to.print = plot.map1, rep.book = rep_toprint_wide) 
     
   }
   
@@ -178,7 +183,6 @@ make.rcbd <- function(location, location.id, trial, trial.id, entries, checks = 
 #' @examples 
 #' 
 #' @import dplyr
-#' @import stringr
 #' @import writexl
 #' 
 #' @export
@@ -206,8 +210,8 @@ make.aibd <- function(location, location.id, trial, trial.id, entries, plot.star
   
   ## Files to read in
   # Check extensions
-  if (!str_detect(entries, ".csv")) stop ("The 'entries' file does not have the .csv extension.")
-  if (!str_detect(checks, ".csv")) stop ("The 'checks' file does not have the .csv extension.")
+  if (!grepl(".csv", entries)) stop ("The 'entries' file does not have the .csv extension.")
+  if (!grepl(".csv", checks))  stop ("The 'checks' file does not have the .csv extension.")
   
   entries_df <- read.csv(entries, stringsAsFactors = FALSE)
   checks_df <- read.csv(checks, stringsAsFactors = FALSE)
