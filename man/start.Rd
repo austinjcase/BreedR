@@ -2,10 +2,13 @@
 % Please edit documentation in R/start.R
 \name{start}
 \alias{start}
-\title{Startup}
+\title{Startup and connect to the database}
 \usage{
-start(species = c("barley", "oat", "silphium"))
+start(species = c("barley", "oat", "silphium"), ssl.ca)
+}
+\arguments{
+\item{species}{The crop species you are interested in.}
 }
 \description{
-Run package startup.
+Connects to the database for the crop of interest.
 }
